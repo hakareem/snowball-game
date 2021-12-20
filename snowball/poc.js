@@ -84,8 +84,8 @@ const lookingLeft = 3;
 const gameState = {
   players: [
     {
-      // username: prompt("enter your username"),
-      username: "harith",
+      username: prompt("enter your username"),
+      // username: "zack",
       position: { x: 50, y: 50 },
       velocity: { x: 0, y: 0 },
       destination: { x: 0, y: 0 },
@@ -108,15 +108,15 @@ const gameState = {
       // },
       // ],
     },
-    {
-      username: "zack",
-      position: { x: 50, y: 50 },
-      velocity: { x: 0, y: 0 },
-      destination: { x: 0, y: 0 },
-      color: "orange",
-      rotation: lookingDown, //default looking direction
-      snowballs: [],
-    },
+    // {
+    //   username: "zack",
+    //   position: { x: 50, y: 50 },
+    //   velocity: { x: 0, y: 0 },
+    //   destination: { x: 0, y: 0 },
+    //   color: "orange",
+    //   rotation: lookingDown, //default looking direction
+    //   snowballs: [],
+    // },
     // {
     //   username: "123",
     //   x: 600,
