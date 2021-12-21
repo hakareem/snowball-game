@@ -168,3 +168,7 @@ function getMousePosition(event: MouseEvent) {
 
   p.direction = new Vector(p.velocity.x, p.velocity.y);
 }
+
+// mousedown eventListener to choose target - draw a line from player to the mouse point
+// mousemove
+// mouseup eventListener
