@@ -13,6 +13,7 @@ class Player {
   velocity: Vector = new Vector(3, 3);
   destination: Vector = new Vector(0, 0);
   snowball: Snowball[] = [];
+  angle: number = 0; // rotation angle of the player(for drawing)
 
   constructor(username: string, position: Vector) {
     this.username = username;
@@ -32,8 +33,6 @@ class Player {
   }
   move() {
     this.position = this.position.add(this.velocity);
-    // this.position.x += this.velocity.x;
-    // this.position.y += this.velocity.y;
   }
 }
 
@@ -48,10 +47,19 @@ class Game {
       Game.players[i].move();
     }
     //snowball movement
+
     // check destination
 
     requestAnimationFrame(Game.cycle);
   }
+}
+
+function hypo(adjacent: number, opposite: number) {
+  return Math.sqrt(Math.pow(adjacent, 2) + Math.pow(opposite, 2));
+}
+
+function distanceBetween(a: Vector, b: Vector) {
+  return hypo(b.x - a.x, b.y - a.y);
 }
 
 class Snowball {
@@ -80,3 +88,20 @@ const player1 = new Player("harith", new Vector(100, 100));
 Game.players.push(player1);
 
 requestAnimationFrame(Game.cycle);
+
+canvas.addEventListener("click", getMousePosition);
+
+function getMousePosition(event: MouseEvent) {
+  let p = Game.players[0];
+  p.destination.x = event.clientX;
+  p.destination.y = event.clientY;
+
+  let adjacent = p.destination.x - p.position.x;
+  let opposite = p.destination.y - p.position.y;
+
+  p.angle = -Math.atan2(-opposite, adjacent) - Math.PI / 2;
+  let hypotenuse = hypo(adjacent, opposite);
+
+  p.velocity.x = (adjacent / hypotenuse) * 5;
+  p.velocity.y = (opposite / hypotenuse) * 5;
+}
