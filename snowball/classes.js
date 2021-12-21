@@ -9,6 +9,7 @@ class Player {
         this.snowballs = [];
         this.angle = 0; // rotation angle of the player(for drawing)
         this.color = "";
+        this.aimingPoint = new Vector(0, 0); // populate that during mouse movement
         this.username = username;
         this.position = position;
         this.color = color;
@@ -39,6 +40,8 @@ class Game {
         // player movement
         ctx === null || ctx === void 0 ? void 0 : ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < Game.players.length; i++) {
+            // draw a line between each player and his aiming point
+            //normalising of vectors
             const p = Game.players[i];
             p.draw();
             p.move();
