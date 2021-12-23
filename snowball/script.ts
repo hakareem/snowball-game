@@ -186,7 +186,10 @@ function mouseDown (_e:MouseEvent) {
   }
   mouseBtnDown = true
 }
+// ashdiaid
+///asad
 
+// DOMMatrixReadOnlyd
 
 function mouseUp(_e:MouseEvent){
   const p = Game.players[0];
