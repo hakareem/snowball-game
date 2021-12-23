@@ -160,3 +160,21 @@ class Vector {
     return hypo(this.x, this.y)
   }
 }
+
+
+// create a class for the obstacles
+// define position and radius
+
+class Obstacles {
+  position: Vector;
+  radius: number;
+
+  constructor (position:Vector, radius:number) {
+    
+    this.position = position;
+    this.radius = radius;
+  }
+
+
+}
+

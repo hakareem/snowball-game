@@ -7,3 +7,10 @@ body {
 #myCanvas {
   border: 1px solid rgb(119, 0, 255);
 }
+
+
+canvas #viewport { 
+  border: 1px solid white; 
+  width: 100px; 
+
+}

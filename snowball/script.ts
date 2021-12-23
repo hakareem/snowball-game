@@ -2,9 +2,10 @@
 
 const canvas = <HTMLCanvasElement>document.getElementById("myCanvas");
 
+const player = document.getElementById('player')
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
 const ctx = canvas.getContext("2d");
 
 // const backgroundMusic = new Audio('music/music_zapsplat_christmas_funk.mp3')
