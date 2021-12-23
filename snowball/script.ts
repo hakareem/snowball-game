@@ -186,7 +186,11 @@ function mouseDown (_e:MouseEvent) {
   }
   mouseBtnDown = true
 }
+// ashdiaid
+///asad
 
+// DOMMatrixReadOnlydhrgergrgr
+//harith is cool
 
 function mouseUp(_e:MouseEvent){
   const p = Game.players[0];
