@@ -7,10 +7,10 @@ canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
 
-const backgroundMusic = new Audio('music/music_zapsplat_christmas_funk.mp3')
-backgroundMusic.volume = 0.2;
-backgroundMusic.play();
-backgroundMusic.loop = true;
+// const backgroundMusic = new Audio('music/music_zapsplat_christmas_funk.mp3')
+// backgroundMusic.volume = 0.2;
+// backgroundMusic.play();
+// backgroundMusic.loop = true;
 
 let colors: string[] = [
   "AntiqueWhite",
@@ -173,27 +173,34 @@ canvas.addEventListener("mouseup", mouseUp)
 canvas.addEventListener("mousemove", mouseMovement)
 
 let mouseBtnDown = false
+let isAiming = false
 
-let inAimingMode = false
-
-function mouseDown () {
+function mouseDown (_e:MouseEvent) {
   const p = Game.players[0];
-  // let mouseCoord = new Vector(p.target.x, p.target.y)
-   p.runToPoint(p.target)
-  // if (distanceBetween(p.target, p.position) <= 20) {
+  
+  if (distanceBetween(p.position, p.target) < 40){
+    isAiming = true
+  }
+  else {
+    p.runToPoint(p.target)
+  }
   mouseBtnDown = true
-} 
+}
 
-function mouseUp(e:MouseEvent){
+
+function mouseUp(_e:MouseEvent){
   const p = Game.players[0];
   mouseBtnDown = false
-  // p.snowballs.push(new Snowball(p.position, p.target.subtract(p.position).normalise().multiply(2)));
-  // offset where the snowball is shot from the player position <---- This should help - don't make it complex
+  if(isAiming ) {
+    p.snowballs.push(new Snowball(p.position, p.target.subtract(p.position).normalise().multiply(5)));
+  }
+  isAiming = false
 }
 
 
 function mouseMovement (e:MouseEvent) {
   let p = Game.players[0];
+
   p.target = new Vector(e.clientX, e.clientY)
 }
 
@@ -216,8 +223,8 @@ function mouseMovement (e:MouseEvent) {
 
 // /////// From Nick //////
 
-//  In MouseUp ....
-// if (player.aiming){
+//   In MouseUp ....
+//   if (player.aiming){
 //   launchSnowBall(player.position,player.target)
 //   player.aiming=false
 //   }

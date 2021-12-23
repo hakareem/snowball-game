@@ -29,9 +29,9 @@ class Player {
         this.position = this.position.add(this.velocity);
     }
     drawAndMoveSnowballs() {
-        for (let j = 0; j < this.snowballs.length; j++) {
-            this.snowballs[j].move();
-            this.snowballs[j].draw();
+        for (let i = 0; i < this.snowballs.length; i++) {
+            this.snowballs[i].move();
+            this.snowballs[i].draw();
         }
     }
     drawAimLine() {
@@ -41,7 +41,6 @@ class Player {
         ctx.strokeStyle = "red";
         ctx.lineWidth = 2;
         ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
-        inAimingMode = true;
     }
     runToPoint(target) {
         let p = Game.players[0];
@@ -73,19 +72,18 @@ class Game {
             const p = Game.players[i];
             p.draw();
             p.move();
+            p.drawAndMoveSnowballs();
             if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
                 p.drawAimLine();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
-                // if (
-                //   // inAimingMode == true && 
-                //   distanceBetween(p.position, p.destination) >= 50) {
-                //   // p.drawAndMoveSnowballs()
+                // if (inAimingMode == true && isDrawing == true) {
+                //   p.drawAndMoveSnowballs()
                 //   p.shootSnowball(p.target)
                 // }
             }
             else if (distanceBetween(p.position, p.destination) < 20) {
-                p.drawAndMoveSnowballs();
+                // p.drawAndMoveSnowballs();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
             }
