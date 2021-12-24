@@ -108,6 +108,12 @@ let numPlayers = 1;
 for (let i = 0; i < numPlayers; i++) {
     Game.players.push(new Player("Harith", new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i]));
 }
+let numObstacles = 10;
+for (let i = 0; i < numObstacles; i++) {
+    let p = new Vector(Math.floor(Math.random() * 2500), Math.floor(Math.random() * 1000));
+    let o = new Obstacle(p, 50 + Math.random() * 100, "green");
+    Game.obstacles.push(o);
+}
 // when we click on a player it shoots a snowball - just for a test not for the full game
 // snowball.addEventListener("click");
 requestAnimationFrame(Game.cycle);

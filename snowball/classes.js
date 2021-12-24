@@ -17,12 +17,14 @@ class Player {
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
-        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, 30, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
-        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
-        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        const img = document.getElementById("player");
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img, 10, 10);
+        // ctx?.beginPath();
+        // ctx?.arc(0, 0, 30, 0, Math.PI * 2);
+        // ctx!.fillStyle = this.color;
+        // ctx?.fill();
+        // ctx?.stroke();
+        // ctx?.closePath;
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
     move() {
@@ -88,10 +90,17 @@ class Game {
                 p.velocity.y = 0;
             }
         }
+        Game.drawObstacles();
         requestAnimationFrame(Game.cycle);
+    }
+    static drawObstacles() {
+        for (let i = 0; i < Game.obstacles.length; i++) {
+            Game.obstacles[i].draw();
+        }
     }
 }
 Game.players = [];
+Game.obstacles = [];
 class Snowball {
     constructor(position, velocity) {
         this.color = "";
@@ -136,6 +145,27 @@ class Vector {
     }
     get length() {
         return hypo(this.x, this.y);
+    }
+}
+// create a class for the obstacles
+// define position and radius
+class Obstacle {
+    constructor(position, radius, color) {
+        this.color = "";
+        this.position = position;
+        this.radius = radius;
+        this.color = color;
+    }
+    draw() {
+        ctx === null || ctx === void 0 ? void 0 : ctx.save();
+        ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
+        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
+        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
+        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
+        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
 }
 //# sourceMappingURL=classes.js.map

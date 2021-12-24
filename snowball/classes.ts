@@ -18,12 +18,16 @@ class Player {
   draw() {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
-    ctx?.beginPath();
-    ctx?.arc(0, 0, 30, 0, Math.PI * 2);
-    ctx!.fillStyle = this.color;
-    ctx?.fill();
-    ctx?.stroke();
-    ctx?.closePath;
+
+    // const img = <HTMLImageElement> document.getElementById("player");
+    // ctx?.drawImage(img, 10, 10);
+
+    // ctx?.beginPath();
+    // ctx?.arc(0, 0, 30, 0, Math.PI * 2);
+    // ctx!.fillStyle = this.color;
+    // ctx?.fill();
+    // ctx?.stroke();
+    // ctx?.closePath;
     ctx?.restore();
   }
   move() {
@@ -74,6 +78,7 @@ class Player {
 
 class Game {
   static players: Player[] = [];
+  static obstacles: Obstacle[] =[]
 
   static cycle() {
 
@@ -103,7 +108,15 @@ class Game {
       }
     }
 
+    Game.drawObstacles() 
+
     requestAnimationFrame(Game.cycle);
+  }
+
+  static drawObstacles () {
+    for (let i=0; i < Game.obstacles.length; i++) {
+      Game.obstacles[i].draw()
+    }
   }
 }
 
@@ -165,16 +178,29 @@ class Vector {
 // create a class for the obstacles
 // define position and radius
 
-class Obstacles {
+class Obstacle {
   position: Vector;
   radius: number;
+  color: string = "";
 
-  constructor (position:Vector, radius:number) {
+  constructor (position:Vector, radius:number, color:string) {
     
     this.position = position;
     this.radius = radius;
+    this.color = color;
   }
 
+draw() {
+  ctx?.save();
+  ctx?.translate(this.position.x, this.position.y);
+  ctx?.beginPath();
+  ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+  ctx!.fillStyle = this.color;
+  ctx?.fill();
+  ctx?.stroke();
+  ctx?.closePath;
+  ctx?.restore();
+  
+  }
 
 }
-
