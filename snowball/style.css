@@ -1,9 +1,72 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
+body{
+            background-color: #031a24;
+            margin:0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+  
+.ground{
+            background-color:rgb(245, 246, 248);
+            height: 50px;
+            position: absolute;
+            bottom:0;
+            width: 100vw;
+        }
 
-#myCanvas {
-  border: 1px solid rgb(119, 0, 255);
+
+.snow1{
+  background: url('m.png');
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: animateOne 15s infinite linear;
+}
+.snow2{
+  background: url('m.png');
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: animateTwo 15s infinite linear;
+}
+.snow3{
+  background: url('m.png');
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: animateThree 15s infinite linear;
+}
+@keyframes animateOne {
+  0%{
+    background-position: 0px 0px;
+  }
+  100%{
+    background-position: 100px 650px;
+  }
+}
+@keyframes animateTwo {
+  0%{
+    background-position: 0px -100px;
+  }
+  100%{
+    background-position: 0px 650px;
+  }
+}
+@keyframes animateThree {
+  0%{
+    background-position: 0px 100px;
+  }
+  100%{
+    background-position: 300px 650px;
+  }
 }

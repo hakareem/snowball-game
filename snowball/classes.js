@@ -1,6 +1,6 @@
 "use strict";
 class Player {
-    constructor(username, position, color) {
+    constructor(username, position, color, hp, hpMax) {
         this.username = "";
         this.position = new Vector(50, 50);
         this.velocity = new Vector(0, 0); // the direction the player is currently moving in
@@ -10,9 +10,26 @@ class Player {
         this.angle = 0; // rotation angle of the player(for drawing)
         this.color = "";
         this.target = new Vector(0, 0); // populate that during mouse movement
+        this.hp = 0;
+        this.hpMax = 0;
         this.username = username;
         this.position = position;
         this.color = color;
+        this.hp = hp;
+        this.hpMax = hpMax;
+    }
+    drawHealth() {
+        ctx === null || ctx === void 0 ? void 0 : ctx.save();
+        ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
+        ctx.fillStyle = "red";
+        let width = 100 * this.hp / this.hpMax;
+        if (width < 0) {
+            width = 0;
+        }
+        ctx === null || ctx === void 0 ? void 0 : ctx.fillRect(-25, 30, 60, 10);
+        ctx.strokeStyle = "black";
+        ctx === null || ctx === void 0 ? void 0 : ctx.strokeRect(-25, 30, 60, 10);
+        ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
@@ -56,12 +73,9 @@ class Player {
     }
     shootSnowball(target) {
         const p = Game.players[0];
-        // get the position of the player and when we click within 10px of the player then shoot a snowball and don't go to the position
         const mouseCoord = new Vector(target.x, target.y);
         if (distanceBetween(mouseCoord, p.position) <= 20) {
             p.snowballs.push(new Snowball(p.position, p.direction));
-            // p.direction only becomes a reference to p.velocity this is why p.velocity sets p.dircetion's value to 0 after running
-            // We creating a shiny new vector for p.direction so it creates a new vector with  the values of p.velocity
         }
     }
 }
@@ -73,14 +87,11 @@ class Game {
             p.draw();
             p.move();
             p.drawAndMoveSnowballs();
+            p.drawHealth();
             if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
                 p.drawAimLine();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
-                // if (inAimingMode == true && isDrawing == true) {
-                //   p.drawAndMoveSnowballs()
-                //   p.shootSnowball(p.target)
-                // }
             }
             else if (distanceBetween(p.position, p.destination) < 20) {
                 // p.drawAndMoveSnowballs();
@@ -106,7 +117,7 @@ class Snowball {
         ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
         ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, 8, 0, Math.PI * 2);
         ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
-        ctx.fillStyle = "hotpink";
+        ctx.fillStyle = "snow";
         ctx === null || ctx === void 0 ? void 0 : ctx.fill();
         ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
