@@ -19,8 +19,8 @@ class Player {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
 
-    // const img = <HTMLImageElement> document.getElementById("player");
-    // ctx?.drawImage(img, 10, 10);
+    const img = <HTMLImageElement> document.getElementById("player");
+    ctx?.drawImage(img, 10, 10);
 
     // ctx?.beginPath();
     // ctx?.arc(0, 0, 30, 0, Math.PI * 2);
