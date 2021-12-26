@@ -118,7 +118,7 @@ body {
 }
 
 .snow1 {
-  background: url("m.png");
+  background: url("/snowball/snowfall image/m.png");
   background-repeat: repeat;
   width: 100%;
   height: 100%;
@@ -128,7 +128,7 @@ body {
   animation: animateOne 15s infinite linear;
 }
 .snow2 {
-  background: url("m.png");
+  background: url("/snowball/snowfall image/m.png");
   background-repeat: repeat;
   width: 100%;
   height: 100%;
@@ -138,7 +138,7 @@ body {
   animation: animateTwo 15s infinite linear;
 }
 .snow3 {
-  background: url("m.png");
+  background: url("/snowball/snowfall image/m.png");
   background-repeat: repeat;
   width: 100%;
   height: 100%;
