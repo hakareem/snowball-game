@@ -26,10 +26,16 @@ class Player {
         if (width < 0) {
             width = 0;
         }
-        ctx === null || ctx === void 0 ? void 0 : ctx.fillRect(-25, 30, 60, 10);
+        ctx === null || ctx === void 0 ? void 0 : ctx.fillRect(-28, 30, 60, 10);
         ctx.strokeStyle = "black";
-        ctx === null || ctx === void 0 ? void 0 : ctx.strokeRect(-25, 30, 60, 10);
+        ctx === null || ctx === void 0 ? void 0 : ctx.strokeRect(-28, 30, 60, 10);
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
+    }
+    drawUsername() {
+        ctx.textAlign = "center";
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "black";
+        ctx === null || ctx === void 0 ? void 0 : ctx.fillText(this.username, this.position.x, this.position.y);
     }
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
@@ -55,7 +61,7 @@ class Player {
         ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
         ctx === null || ctx === void 0 ? void 0 : ctx.moveTo(this.target.x, this.target.y);
         ctx === null || ctx === void 0 ? void 0 : ctx.lineTo(this.position.x, this.position.y);
-        ctx.strokeStyle = "red";
+        ctx.strokeStyle = "black";
         ctx.lineWidth = 2;
         ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
     }
@@ -88,6 +94,7 @@ class Game {
             p.move();
             p.drawAndMoveSnowballs();
             p.drawHealth();
+            p.drawUsername();
             if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
                 p.drawAimLine();
                 p.velocity.x = 0;

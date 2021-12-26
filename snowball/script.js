@@ -25,9 +25,10 @@ let colors = [
     "BlueViolet",
     "Ivory",
 ];
+let username = prompt("Enter your username");
 let numPlayers = 4;
 for (let i = 0; i < numPlayers; i++) {
-    Game.players.push(new Player("Harith", new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100));
+    Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100));
 }
 requestAnimationFrame(Game.cycle);
 function hypo(adjacent, opposite) {

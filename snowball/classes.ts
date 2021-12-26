@@ -10,6 +10,7 @@ class Player {
   target: Vector = new Vector(0, 0); // populate that during mouse movement
   hp: number = 0;
   hpMax: number = 0;
+  
 
   constructor(username: string, position: Vector, color: string, hp: number, hpMax: number) {
     this.username = username;
@@ -27,10 +28,17 @@ class Player {
     if(width < 0 ){
       width = 0
       }
-    ctx?.fillRect(-25,30,60,10)
+    ctx?.fillRect(-28,30,60,10)
     ctx!.strokeStyle  = "black"
-    ctx?.strokeRect(-25,30,60,10)
+    ctx?.strokeRect(-28,30,60,10)
     ctx?.restore()
+  }
+
+  drawUsername(){
+  ctx!.textAlign = "center";
+  ctx!.font = "18px Arial";
+  ctx!.fillStyle = "black";
+  ctx?.fillText(this.username, this.position.x, this.position.y); 
   }
 
   draw() {
@@ -59,7 +67,7 @@ class Player {
     ctx?.beginPath()
     ctx?.moveTo(this.target.x, this.target.y)
     ctx?.lineTo(this.position.x,this.position.y)
-    ctx!.strokeStyle = "red"
+    ctx!.strokeStyle = "black"
     ctx!.lineWidth = 2
     ctx?.stroke()
   }
@@ -101,6 +109,7 @@ class Game {
       p.move();
       p.drawAndMoveSnowballs();
       p.drawHealth()
+      p.drawUsername()
       
 
 
