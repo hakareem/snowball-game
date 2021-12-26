@@ -33,7 +33,7 @@ for (let i = 0; i < numPlayers; i++) {
 let numObstacles = 10;
 for (let i = 0; i < numObstacles; i++) {
     let p = new Vector(Math.floor(Math.random() * 2500), Math.floor(Math.random() * 1000));
-    let o = new Obstacle(p, 50 + Math.random() * 20, "lightblue");
+    let o = new Obstacle(p, 50 + Math.random() * 500, "lightblue");
     Game.obstacles.push(o);
 }
 requestAnimationFrame(Game.cycle);

@@ -40,6 +40,8 @@ class Player {
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
+        // const img = <HTMLImageElement>document.getElementById("player");
+        // ctx?.drawImage(img, 10, 10);
         ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
         ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, 30, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
@@ -195,12 +197,14 @@ class Obstacle {
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
-        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
-        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
-        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        const img = document.getElementById("trees");
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img, 10, 10);
+        // ctx?.beginPath();
+        // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+        // ctx!.fillStyle = this.color;
+        // ctx?.fill();
+        // ctx?.stroke();
+        // ctx?.closePath;
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
 }

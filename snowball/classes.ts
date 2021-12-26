@@ -49,6 +49,9 @@ class Player {
   draw() {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
+    // const img = <HTMLImageElement>document.getElementById("player");
+    // ctx?.drawImage(img, 10, 10);
+
     ctx?.beginPath();
     ctx?.arc(0, 0, 30, 0, Math.PI * 2);
     ctx!.fillStyle = this.color;
@@ -225,12 +228,15 @@ class Obstacle {
   draw() {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
-    ctx?.beginPath();
-    ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
-    ctx!.fillStyle = this.color;
-    ctx?.fill();
-    ctx?.stroke();
-    ctx?.closePath;
+    const img = <HTMLImageElement>document.getElementById("trees");
+    ctx?.drawImage(img, 10, 10);
+
+    // ctx?.beginPath();
+    // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+    // ctx!.fillStyle = this.color;
+    // ctx?.fill();
+    // ctx?.stroke();
+    // ctx?.closePath;
     ctx?.restore();
   }
 }
