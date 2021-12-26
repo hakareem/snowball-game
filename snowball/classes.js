@@ -22,7 +22,7 @@ class Player {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
         ctx.fillStyle = "red";
-        let width = 100 * this.hp / this.hpMax;
+        let width = (100 * this.hp) / this.hpMax;
         if (width < 0) {
             width = 0;
         }
@@ -84,6 +84,26 @@ class Player {
             p.snowballs.push(new Snowball(p.position, p.direction));
         }
     }
+    pushOtherPlayersAway() {
+        let isOverlap = false;
+        // const p = Game.players[0];
+        for (let i = 0; i < Game.players.length; i++) {
+            const otherPlayer = Game.players[i];
+            if (otherPlayer != this) {
+                let op = otherPlayer.position;
+                let dbt = distanceBetween(this.position, otherPlayer.position);
+                let overlap = 60 - dbt;
+                if (overlap > 0) {
+                    isOverlap = true;
+                    let vectorBetween = this.position.subtract(otherPlayer.position);
+                    console.log(overlap);
+                    let directionBetween = vectorBetween.normalise();
+                    otherPlayer.position = otherPlayer.position.subtract(directionBetween.multiply(overlap + 1));
+                }
+            }
+        }
+        return isOverlap;
+    }
 }
 class Game {
     static cycle() {
@@ -95,7 +115,9 @@ class Game {
             p.drawAndMoveSnowballs();
             p.drawHealth();
             p.drawUsername();
-            if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
+            while (p.pushOtherPlayersAway()) { }
+            if (distanceBetween(p.position, p.destination) < 50 &&
+                mouseBtnDown == true) {
                 p.drawAimLine();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
@@ -106,10 +128,17 @@ class Game {
                 p.velocity.y = 0;
             }
         }
+        Game.drawObstacles();
         requestAnimationFrame(Game.cycle);
+    }
+    static drawObstacles() {
+        for (let i = 0; i < Game.obstacles.length; i++) {
+            Game.obstacles[i].draw();
+        }
     }
 }
 Game.players = [];
+Game.obstacles = [];
 class Snowball {
     constructor(position, velocity) {
         this.color = "";
@@ -154,6 +183,25 @@ class Vector {
     }
     get length() {
         return hypo(this.x, this.y);
+    }
+}
+class Obstacle {
+    constructor(position, radius, color) {
+        this.color = "";
+        this.position = position;
+        this.radius = radius;
+        this.color = color;
+    }
+    draw() {
+        ctx === null || ctx === void 0 ? void 0 : ctx.save();
+        ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
+        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
+        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
+        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
+        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
 }
 //# sourceMappingURL=classes.js.map

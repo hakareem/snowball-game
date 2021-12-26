@@ -10,35 +10,40 @@ class Player {
   target: Vector = new Vector(0, 0); // populate that during mouse movement
   hp: number = 0;
   hpMax: number = 0;
-  
 
-  constructor(username: string, position: Vector, color: string, hp: number, hpMax: number) {
+  constructor(
+    username: string,
+    position: Vector,
+    color: string,
+    hp: number,
+    hpMax: number
+  ) {
     this.username = username;
     this.position = position;
     this.color = color;
     this.hp = hp;
     this.hpMax = hpMax;
   }
-  drawHealth(){
-    ctx?.save()
+  drawHealth() {
+    ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
 
-    ctx!.fillStyle = "red"
-    let width = 100* this.hp/this.hpMax
-    if(width < 0 ){
-      width = 0
-      }
-    ctx?.fillRect(-28,30,60,10)
-    ctx!.strokeStyle  = "black"
-    ctx?.strokeRect(-28,30,60,10)
-    ctx?.restore()
+    ctx!.fillStyle = "red";
+    let width = (100 * this.hp) / this.hpMax;
+    if (width < 0) {
+      width = 0;
+    }
+    ctx?.fillRect(-28, 30, 60, 10);
+    ctx!.strokeStyle = "black";
+    ctx?.strokeRect(-28, 30, 60, 10);
+    ctx?.restore();
   }
 
-  drawUsername(){
-  ctx!.textAlign = "center";
-  ctx!.font = "18px Arial";
-  ctx!.fillStyle = "black";
-  ctx?.fillText(this.username, this.position.x, this.position.y); 
+  drawUsername() {
+    ctx!.textAlign = "center";
+    ctx!.font = "18px Arial";
+    ctx!.fillStyle = "black";
+    ctx?.fillText(this.username, this.position.x, this.position.y);
   }
 
   draw() {
@@ -51,7 +56,6 @@ class Player {
     ctx?.stroke();
     ctx?.closePath;
     ctx?.restore();
-    
   }
   move() {
     this.position = this.position.add(this.velocity);
@@ -63,15 +67,15 @@ class Player {
       this.snowballs[i].draw();
     }
   }
-  drawAimLine(){
-    ctx?.beginPath()
-    ctx?.moveTo(this.target.x, this.target.y)
-    ctx?.lineTo(this.position.x,this.position.y)
-    ctx!.strokeStyle = "black"
-    ctx!.lineWidth = 2
-    ctx?.stroke()
+  drawAimLine() {
+    ctx?.beginPath();
+    ctx?.moveTo(this.target.x, this.target.y);
+    ctx?.lineTo(this.position.x, this.position.y);
+    ctx!.strokeStyle = "black";
+    ctx!.lineWidth = 2;
+    ctx?.stroke();
   }
-  runToPoint(target:Vector){
+  runToPoint(target: Vector) {
     let p = Game.players[0];
     p.destination.x = target.x;
     p.destination.y = target.y;
@@ -93,14 +97,34 @@ class Player {
       p.snowballs.push(new Snowball(p.position, p.direction));
     }
   }
-  
+  pushOtherPlayersAway() {
+    let isOverlap = false;
+    // const p = Game.players[0];
+    for (let i = 0; i < Game.players.length; i++) {
+      const otherPlayer = Game.players[i];
+      if (otherPlayer != this) {
+        let op = otherPlayer.position;
+        let dbt = distanceBetween(this.position, otherPlayer.position);
+        let overlap = 60 - dbt;
+        if (overlap > 0) {
+          isOverlap = true;
+          let vectorBetween = this.position.subtract(otherPlayer.position);
+          console.log(overlap);
+          let directionBetween = vectorBetween.normalise();
+          otherPlayer.position = otherPlayer.position.subtract(
+            directionBetween.multiply(overlap + 1)
+          );
+        }
+      }
+    }
+    return isOverlap;
+  }
 }
 
 class Game {
   static players: Player[] = [];
-
+  static obstacles: Obstacle[] = [];
   static cycle() {
-
     ctx?.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < Game.players.length; i++) {
@@ -108,25 +132,29 @@ class Game {
       p.draw();
       p.move();
       p.drawAndMoveSnowballs();
-      p.drawHealth()
-      p.drawUsername()
-      
-
-
-      if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
-        p.drawAimLine()
+      p.drawHealth();
+      p.drawUsername();
+      while (p.pushOtherPlayersAway()) {}
+      if (
+        distanceBetween(p.position, p.destination) < 50 &&
+        mouseBtnDown == true
+      ) {
+        p.drawAimLine();
+        p.velocity.x = 0;
+        p.velocity.y = 0;
+      } else if (distanceBetween(p.position, p.destination) < 20) {
+        // p.drawAndMoveSnowballs();
         p.velocity.x = 0;
         p.velocity.y = 0;
       }
-       
-      else if (distanceBetween(p.position, p.destination) < 20){
-        // p.drawAndMoveSnowballs();
-        p.velocity.x =0
-        p.velocity.y =0
-      }
     }
-
+    Game.drawObstacles();
     requestAnimationFrame(Game.cycle);
+  }
+  static drawObstacles() {
+    for (let i = 0; i < Game.obstacles.length; i++) {
+      Game.obstacles[i].draw();
+    }
   }
 }
 
@@ -148,7 +176,7 @@ class Snowball {
     ctx?.beginPath();
     ctx?.arc(0, 0, 8, 0, Math.PI * 2);
     ctx?.stroke();
-    ctx!.fillStyle = "snow"
+    ctx!.fillStyle = "snow";
     ctx?.fill();
     ctx?.closePath;
     ctx?.restore();
@@ -167,21 +195,42 @@ class Vector {
     this.y = y;
   }
 
-  add(v:Vector):Vector {
+  add(v: Vector): Vector {
     return new Vector(this.x + v.x, this.y + v.y);
   }
-  multiply(m:number):Vector{
-    return new Vector(this.x * m, this.y * m)
+  multiply(m: number): Vector {
+    return new Vector(this.x * m, this.y * m);
   }
-  subtract(v:Vector):Vector{
-    return new Vector(this.x - v.x, this.y - v.y)
+  subtract(v: Vector): Vector {
+    return new Vector(this.x - v.x, this.y - v.y);
   }
-  normalise(){
-    return new Vector(this.x / this.length, this.y / this.length)
+  normalise() {
+    return new Vector(this.x / this.length, this.y / this.length);
   }
-  get length (){
-    return hypo(this.x, this.y)
+  get length() {
+    return hypo(this.x, this.y);
   }
 }
+class Obstacle {
+  position: Vector;
+  radius: number;
+  color: string = "";
 
+  constructor(position: Vector, radius: number, color: string) {
+    this.position = position;
+    this.radius = radius;
+    this.color = color;
+  }
 
+  draw() {
+    ctx?.save();
+    ctx?.translate(this.position.x, this.position.y);
+    ctx?.beginPath();
+    ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+    ctx!.fillStyle = this.color;
+    ctx?.fill();
+    ctx?.stroke();
+    ctx?.closePath;
+    ctx?.restore();
+  }
+}
