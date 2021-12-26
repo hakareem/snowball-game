@@ -36,23 +36,22 @@ class Player {
       this.snowballs[i].draw();
     }
   }
-  drawAimLine(){
+  drawAimLine() {
     ctx?.beginPath()
     ctx?.moveTo(this.target.x, this.target.y)
-    ctx?.lineTo(this.position.x,this.position.y)
+    ctx?.lineTo(this.position.x, this.position.y)
     ctx!.strokeStyle = "red"
     ctx!.lineWidth = 2
     ctx?.stroke()
 
   }
-  runToPoint(target:Vector){
+  runToPoint(target: Vector) {
     let p = Game.players[0];
+    let p1 = Game.players[1]
     p.destination.x = target.x;
     p.destination.y = target.y;
-
     let adjacent = p.destination.x - p.position.x;
     let opposite = p.destination.y - p.position.y;
-
     p.angle = -Math.atan2(-opposite, adjacent) - Math.PI / 2;
     let hypotenuse = hypo(adjacent, opposite);
     p.velocity.x = (adjacent / hypotenuse) * 5;
@@ -70,39 +69,50 @@ class Player {
       // We creating a shiny new vector for p.direction so it creates a new vector with  the values of p.velocity
     }
   }
+  pushOtherPlayersAway():boolean {
+    let isOverlap = false
+    // const p = Game.players[0];
+    for(let i = 0; i < Game.players.length; i++) {
+      const otherPlayer = Game.players[i]
+      if (otherPlayer != this) {
+        let op = otherPlayer.position
+        let dbt = distanceBetween(this.position, otherPlayer.position)
+        let overlap:number = 60 - dbt
+        if (overlap > 0) {
+          isOverlap = true
+          let vectorBetween = this.position.subtract(otherPlayer.position)
+          console.log(overlap)
+          let directionBetween = vectorBetween.normalise()
+          otherPlayer.position = otherPlayer.position.subtract(directionBetween.multiply(overlap + 1))
+        }
+      }
+    }
+  return isOverlap
+}
 }
 
 class Game {
   static players: Player[] = [];
+  static players1: Player[] = [];
 
   static cycle() {
-
     ctx?.clearRect(0, 0, canvas.width, canvas.height);
-
     for (let i = 0; i < Game.players.length; i++) {
       const p = Game.players[i];
       p.draw();
       p.move();
       p.drawAndMoveSnowballs();
-
-
+      while (p.pushOtherPlayersAway()){}
       if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
         p.drawAimLine()
         p.velocity.x = 0;
         p.velocity.y = 0;
-        // if (inAimingMode == true && isDrawing == true) {
-        //   p.drawAndMoveSnowballs()
-        //   p.shootSnowball(p.target)
-        // }
       }
-       
-      else if (distanceBetween(p.position, p.destination) < 20){
-        // p.drawAndMoveSnowballs();
-        p.velocity.x =0
-        p.velocity.y =0
+      else if (distanceBetween(p.position, p.destination) < 20) {
+        p.velocity.x = 0
+        p.velocity.y = 0
       }
     }
-
     requestAnimationFrame(Game.cycle);
   }
 }
@@ -144,19 +154,19 @@ class Vector {
     this.y = y;
   }
 
-  add(v:Vector):Vector {
+  add(v: Vector): Vector {
     return new Vector(this.x + v.x, this.y + v.y);
   }
-  multiply(m:number):Vector{
+  multiply(m: number): Vector {
     return new Vector(this.x * m, this.y * m)
   }
-  subtract(v:Vector):Vector{
+  subtract(v: Vector): Vector {
     return new Vector(this.x - v.x, this.y - v.y)
   }
-  normalise(){
+  normalise() {
     return new Vector(this.x / this.length, this.y / this.length)
   }
-  get length (){
+  get length() {
     return hypo(this.x, this.y)
   }
 }

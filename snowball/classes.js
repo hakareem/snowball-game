@@ -44,6 +44,7 @@ class Player {
     }
     runToPoint(target) {
         let p = Game.players[0];
+        let p1 = Game.players[1];
         p.destination.x = target.x;
         p.destination.y = target.y;
         let adjacent = p.destination.x - p.position.x;
@@ -64,6 +65,26 @@ class Player {
             // We creating a shiny new vector for p.direction so it creates a new vector with  the values of p.velocity
         }
     }
+    pushOtherPlayersAway() {
+        let isOverlap = false;
+        // const p = Game.players[0];
+        for (let i = 0; i < Game.players.length; i++) {
+            const otherPlayer = Game.players[i];
+            if (otherPlayer != this) {
+                let op = otherPlayer.position;
+                let dbt = distanceBetween(this.position, otherPlayer.position);
+                let overlap = 60 - dbt;
+                if (overlap > 0) {
+                    isOverlap = true;
+                    let vectorBetween = this.position.subtract(otherPlayer.position);
+                    console.log(overlap);
+                    let directionBetween = vectorBetween.normalise();
+                    otherPlayer.position = otherPlayer.position.subtract(directionBetween.multiply(overlap + 1));
+                }
+            }
+        }
+        return isOverlap;
+    }
 }
 class Game {
     static cycle() {
@@ -73,17 +94,13 @@ class Game {
             p.draw();
             p.move();
             p.drawAndMoveSnowballs();
+            while (p.pushOtherPlayersAway()) { }
             if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
                 p.drawAimLine();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
-                // if (inAimingMode == true && isDrawing == true) {
-                //   p.drawAndMoveSnowballs()
-                //   p.shootSnowball(p.target)
-                // }
             }
             else if (distanceBetween(p.position, p.destination) < 20) {
-                // p.drawAndMoveSnowballs();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
             }
@@ -92,6 +109,7 @@ class Game {
     }
 }
 Game.players = [];
+Game.players1 = [];
 class Snowball {
     constructor(position, velocity) {
         this.color = "";
