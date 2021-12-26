@@ -231,7 +231,7 @@ class Obstacle {
     const img = <HTMLImageElement>document.getElementById("trees");
     ctx?.drawImage(img, 10, 10);
 
-    // ctx?.beginPath();
+    ctx?.beginPath();
     // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
     // ctx!.fillStyle = this.color;
     // ctx?.fill();
