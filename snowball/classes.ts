@@ -80,7 +80,7 @@ class Player {
   }
   runToPoint(target: Vector) {
     let p = Game.players[0];
-    let p1 = Game.players[1]
+    let p1 = Game.players[1];
     p.destination.x = target.x;
     p.destination.y = target.y;
     let adjacent = p.destination.x - p.position.x;
@@ -120,10 +120,10 @@ class Player {
   }
   movePlayersAroundObstacles() {
     for (let i = 0; i < Game.obstacles.length; i++) {
-      const obstacles = Game.obstacles[i]
+      const obstacles = Game.obstacles[i];
       let dbt = distanceBetween(this.position, obstacles.position);
       let overlap = 60 - dbt;
-      console.log(dbt, obstacles)
+      console.log(dbt, obstacles);
       if (overlap > 0) {
         let vectorBetween = this.position.subtract(obstacles.position);
         let directionBetween = vectorBetween.normalise();
@@ -147,8 +147,8 @@ class Game {
       p.drawAndMoveSnowballs();
       p.drawHealth();
       p.drawUsername();
-      p.movePlayersAroundObstacles()
-      while (p.pushOtherPlayersAway()) { }
+      p.movePlayersAroundObstacles();
+      while (p.pushOtherPlayersAway()) {}
       if (
         distanceBetween(p.position, p.destination) < 50 &&
         mouseBtnDown == true
@@ -239,15 +239,15 @@ class Obstacle {
   draw() {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
-    const img = <HTMLImageElement>document.getElementById("trees");
-    ctx?.drawImage(img, -110, -110);
+    // const img = <HTMLImageElement>document.getElementById("trees");
+    // ctx?.drawImage(img, -110, -110);
 
-    // ctx?.beginPath();
-    // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
-    // ctx!.fillStyle = this.color;
-    // ctx?.fill();
-    // ctx?.stroke();
-    // ctx?.closePath;
+    ctx?.beginPath();
+    ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+    ctx!.fillStyle = this.color;
+    ctx?.fill();
+    ctx?.stroke();
+    ctx?.closePath;
     ctx?.restore();
   }
 }
