@@ -1,6 +1,8 @@
 "use strict";
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 // Audio //
 var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
 function startBackgroundMusic() {
@@ -60,6 +62,7 @@ let mouseBtnDown = false;
 let isAiming = false;
 function mouseDown(_e) {
     const p = Game.players[0];
+    startBackgroundMusic();
     if (distanceBetween(p.position, p.target) < 40) {
         isAiming = true;
     }
@@ -73,6 +76,7 @@ function mouseUp(_e) {
     mouseBtnDown = false;
     if (isAiming) {
         p.snowballs.push(new Snowball(p.position, p.target.subtract(p.position).normalise().multiply(5)));
+        startThrowSound();
     }
     isAiming = false;
 }
