@@ -56,9 +56,15 @@ images.push("obstacle images/tree_23.png");
 images.push("obstacle images/tree_28.png");
 images.push("obstacle images/tree_43.png");
 images.push("obstacle images/tree_52.png");
+<<<<<<< HEAD
 let numObstacles = 100;
 for (let i = 0; i < numObstacles; i++) {
     let p = new Vector(Math.floor(Math.random() * 1000), Math.floor(Math.random() * 1000));
+=======
+let numObstacles = 200;
+for (let i = 0; i < numObstacles; i++) {
+    let p = new Vector(Math.floor(Math.random() * 5000), Math.floor(Math.random() * 5000));
+>>>>>>> efcf72f1b622643db65917bb241d69f3888033ff
     let img = document.createElement("img");
     let indexImage = Math.floor(Math.random() * images.length);
     img.src = images[indexImage];
