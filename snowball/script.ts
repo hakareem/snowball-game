@@ -6,28 +6,28 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 // Audio //
-var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
-function startBackgroundMusic() {
-  backgroundMusic.play();
-  backgroundMusic.loop = true;
-  backgroundMusic.volume = 0.1;
-}
-const hitSound = new Audio(
-  "music/julien_matthey_impact_snowball_on_cement_002.mp3"
-);
-function startHitSound() {
-  hitSound.play();
-}
-const throwSound = new Audio(
-  "music/zapsplat_sport_rugby_ball_throw_pass_let_go_001_67491.mp3"
-);
-function startThrowSound() {
-  throwSound.play();
-}
-const hurtSound = new Audio("music/zapsplat_human_male_gasp_001_19848.mp3");
-function startHurtSound() {
-  hurtSound.play();
-}
+// var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
+// function startBackgroundMusic() {
+//   backgroundMusic.play();
+//   backgroundMusic.loop = true;
+//   backgroundMusic.volume = 0.1;
+// }
+// const hitSound = new Audio(
+//   "music/julien_matthey_impact_snowball_on_cement_002.mp3"
+// );
+// function startHitSound() {
+//   hitSound.play();
+// }
+// const throwSound = new Audio(
+//   "music/zapsplat_sport_rugby_ball_throw_pass_let_go_001_67491.mp3"
+// );
+// function startThrowSound() {
+//   throwSound.play();
+// }
+// const hurtSound = new Audio("music/zapsplat_human_male_gasp_001_19848.mp3");
+// function startHurtSound() {
+//   hurtSound.play();
+// }
 
 let colors: string[] = [
   "Chartreuse",
@@ -47,15 +47,15 @@ let colors: string[] = [
 
 let username: string = prompt("Enter your username")!;
 
-let numPlayers = 1;
+let numPlayers = 10;
 
 for (let i = 0; i < numPlayers; i++) {
   Game.players.push(
     new Player(
       username,
       new Vector(
-        Math.floor(Math.random() * 400),
-        Math.floor(Math.random() * 400)
+        201,
+        200
       ),
       colors[i],
       50,
@@ -74,11 +74,11 @@ images.push("obstacle images/tree_43.png")
 images.push("obstacle images/tree_52.png")
 
 
-let numObstacles = 10;
+let numObstacles = 1;
 for (let i = 0; i < numObstacles; i++) {
   let p = new Vector(
-    Math.floor(Math.random() * 2500),
-    Math.floor(Math.random() * 1000)
+    Math.floor(200),
+    Math.floor(200)
   );
   let img = document.createElement("img")
   let indexImage = Math.floor(Math.random()*images.length)
@@ -109,7 +109,7 @@ let isAiming = false;
 
 function mouseDown(_e: MouseEvent) {
   const p = Game.players[0];
-  startBackgroundMusic();
+  // startBackgroundMusic();
   if (distanceBetween(p.position, p.target) < 40) {
     isAiming = true;
   } else {
@@ -128,7 +128,7 @@ function mouseUp(_e: MouseEvent) {
         p.target.subtract(p.position).normalise().multiply(5)
       )
     );
-    startThrowSound();
+    // startThrowSound();
   }
   isAiming = false;
 }
