@@ -147,7 +147,7 @@ class Player {
           this.runToPoint(this.destination)
         // }
       }
-      
+   
     }
   }
 }

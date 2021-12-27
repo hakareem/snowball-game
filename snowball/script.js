@@ -56,55 +56,57 @@ images.push("obstacle images/tree_23.png");
 images.push("obstacle images/tree_28.png");
 images.push("obstacle images/tree_43.png");
 images.push("obstacle images/tree_52.png");
-<<<<<<< HEAD
 let numObstacles = 100;
 for (let i = 0; i < numObstacles; i++) {
     let p = new Vector(Math.floor(Math.random() * 1000), Math.floor(Math.random() * 1000));
-=======
-let numObstacles = 200;
-for (let i = 0; i < numObstacles; i++) {
-    let p = new Vector(Math.floor(Math.random() * 5000), Math.floor(Math.random() * 5000));
->>>>>>> efcf72f1b622643db65917bb241d69f3888033ff
-    let img = document.createElement("img");
-    let indexImage = Math.floor(Math.random() * images.length);
-    img.src = images[indexImage];
-    let o = new Obstacle(p, 50 + Math.random() * 50, "lightblue", img);
-    Game.obstacles.push(o);
-}
-requestAnimationFrame(Game.cycle);
-function hypo(adjacent, opposite) {
-    return Math.sqrt(Math.pow(adjacent, 2) + Math.pow(opposite, 2));
-}
-function distanceBetween(a, b) {
-    return hypo(b.x - a.x, b.y - a.y);
-}
-canvas.addEventListener("mousedown", mouseDown);
-canvas.addEventListener("mouseup", mouseUp);
-canvas.addEventListener("mousemove", mouseMovement);
-let mouseBtnDown = false;
-let isAiming = false;
-function mouseDown(_e) {
-    const p = Game.players[0];
-    // startBackgroundMusic();
-    if (distanceBetween(p.position, p.target) < 40) {
-        isAiming = true;
+
+    let numObstacles = 200;
+
+    let numObstacles = 100;
+
+    for (let i = 0; i < numObstacles; i++) {
+        let p = new Vector(Math.floor(Math.random() * 5000), Math.floor(Math.random() * 5000));
+
+        let img = document.createElement("img");
+        let indexImage = Math.floor(Math.random() * images.length);
+        img.src = images[indexImage];
+        let o = new Obstacle(p, 50 + Math.random() * 50, "lightblue", img);
+        Game.obstacles.push(o);
     }
-    else {
-        p.runToPoint(p.target);
+    requestAnimationFrame(Game.cycle);
+    function hypo(adjacent, opposite) {
+        return Math.sqrt(Math.pow(adjacent, 2) + Math.pow(opposite, 2));
     }
-    mouseBtnDown = true;
-}
-function mouseUp(_e) {
-    const p = Game.players[0];
-    mouseBtnDown = false;
-    if (isAiming) {
-        p.snowballs.push(new Snowball(p.position, p.target.subtract(p.position).normalise().multiply(5)));
-        // startThrowSound();
+    function distanceBetween(a, b) {
+        return hypo(b.x - a.x, b.y - a.y);
     }
-    isAiming = false;
+    canvas.addEventListener("mousedown", mouseDown);
+    canvas.addEventListener("mouseup", mouseUp);
+    canvas.addEventListener("mousemove", mouseMovement);
+    let mouseBtnDown = false;
+    let isAiming = false;
+    function mouseDown(_e) {
+        const p = Game.players[0];
+        // startBackgroundMusic();
+        if (distanceBetween(p.position, p.target) < 40) {
+            isAiming = true;
+        }
+        else {
+            p.runToPoint(p.target);
+        }
+        mouseBtnDown = true;
+    }
+    function mouseUp(_e) {
+        const p = Game.players[0];
+        mouseBtnDown = false;
+        if (isAiming) {
+            p.snowballs.push(new Snowball(p.position, p.target.subtract(p.position).normalise().multiply(5)));
+            // startThrowSound();
+        }
+        isAiming = false;
+    }
+    function mouseMovement(e) {
+        let p = Game.players[0];
+        p.target = new Vector(e.clientX + Camera.focus.x - canvas.width / 2, e.clientY + Camera.focus.y - canvas.height / 2);
+    }
 }
-function mouseMovement(e) {
-    let p = Game.players[0];
-    p.target = new Vector(e.clientX + Camera.focus.x - canvas.width / 2, e.clientY + Camera.focus.y - canvas.height / 2);
-}
-//# sourceMappingURL=script.js.map
