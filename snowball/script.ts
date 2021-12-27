@@ -64,12 +64,6 @@ for (let i = 0; i < numPlayers; i++) {
   );
 }
 
-<<<<<<< HEAD
-let numObstacles = 1;
-for (let i = 0; i < numObstacles; i++) {
-  let p = new Vector(200,200);
-  let o = new Obstacle(p, 50, "lightblue");
-=======
 
 let images = [] 
 images.push("obstacle images/tree_12.png")
@@ -91,7 +85,6 @@ for (let i = 0; i < numObstacles; i++) {
   img.src = images[indexImage]
 
   let o = new Obstacle(p, 50 + Math.random() * 50, "lightblue", img);
->>>>>>> d2f29f02916edcbfc6fb31cf522649195db0b40c
   Game.obstacles.push(o);
 }
 

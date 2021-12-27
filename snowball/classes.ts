@@ -122,20 +122,6 @@ class Player {
     for (let i = 0; i < Game.obstacles.length; i++) {
       const obstacles = Game.obstacles[i];
       let dbt = distanceBetween(this.position, obstacles.position);
-<<<<<<< HEAD
-      // let overlap = 110
-      console.log(dbt)
-      console.log(obstacles.position)
-      console.log(this.position)
-      // if (dbt > 45 && dbt > 70) {
-      //   console.log(dbt)
-      //   let vectorBetween = this.position.subtract(obstacles.position);
-      //   let directionBetween = vectorBetween.normalise();
-      //   this.position = this.position.subtract(
-      //   directionBetween.multiply(overlap + 1)
-      //   );
-      // }
-=======
       let overlap = 60 - dbt;
       // console.log(dbt, obstacles);
       if (overlap > 0) {
@@ -145,7 +131,6 @@ class Player {
           directionBetween.multiply(overlap + 1)
         );
       }
->>>>>>> d2f29f02916edcbfc6fb31cf522649195db0b40c
     }
   }
 }
@@ -267,13 +252,10 @@ class Obstacle {
     ctx?.fill();
     ctx?.stroke();
     ctx?.closePath;
-<<<<<<< HEAD
-=======
     // const img = <HTMLImageElement>document.getElementById("trees");
     let r = this.radius * 1.4;
     ctx?.drawImage(this.img, -r, -r, r * 2, r * 2); // -img.width/2, -img.height/2);
     // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
->>>>>>> d2f29f02916edcbfc6fb31cf522649195db0b40c
     ctx?.restore();
   }
 }
