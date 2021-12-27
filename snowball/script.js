@@ -92,6 +92,6 @@ function mouseUp(_e) {
 }
 function mouseMovement(e) {
     let p = Game.players[0];
-    p.target = new Vector(e.clientX, e.clientY);
+    p.target = new Vector(e.clientX + Camera.focus.x - canvas.width / 2, e.clientY + Camera.focus.y - canvas.height / 2);
 }
 //# sourceMappingURL=script.js.map

@@ -64,15 +64,13 @@ for (let i = 0; i < numPlayers; i++) {
   );
 }
 
-
-let images = [] 
-images.push("obstacle images/tree_12.png")
-images.push("obstacle images/tree_17.png")
-images.push("obstacle images/tree_23.png")
-images.push("obstacle images/tree_28.png")
-images.push("obstacle images/tree_43.png")
-images.push("obstacle images/tree_52.png")
-
+let images = [];
+images.push("obstacle images/tree_12.png");
+images.push("obstacle images/tree_17.png");
+images.push("obstacle images/tree_23.png");
+images.push("obstacle images/tree_28.png");
+images.push("obstacle images/tree_43.png");
+images.push("obstacle images/tree_52.png");
 
 let numObstacles = 10;
 for (let i = 0; i < numObstacles; i++) {
@@ -80,17 +78,15 @@ for (let i = 0; i < numObstacles; i++) {
     Math.floor(Math.random() * 2500),
     Math.floor(Math.random() * 1000)
   );
-  let img = document.createElement("img")
-  let indexImage = Math.floor(Math.random()*images.length)
-  img.src = images[indexImage]
+  let img = document.createElement("img");
+  let indexImage = Math.floor(Math.random() * images.length);
+  img.src = images[indexImage];
 
   let o = new Obstacle(p, 50 + Math.random() * 50, "lightblue", img);
   Game.obstacles.push(o);
 }
 
-requestAnimationFrame(Game.cycle)
-
-
+requestAnimationFrame(Game.cycle);
 
 function hypo(adjacent: number, opposite: number) {
   return Math.sqrt(Math.pow(adjacent, 2) + Math.pow(opposite, 2));
@@ -136,7 +132,8 @@ function mouseUp(_e: MouseEvent) {
 function mouseMovement(e: MouseEvent) {
   let p = Game.players[0];
 
-  p.target = new Vector(e.clientX, e.clientY);
+  p.target = new Vector(
+    e.clientX + Camera.focus.x - canvas.width / 2,
+    e.clientY + Camera.focus.y - canvas.height / 2
+  );
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

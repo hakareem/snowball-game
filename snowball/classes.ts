@@ -139,7 +139,9 @@ class Game {
   static players: Player[] = [];
   static obstacles: Obstacle[] = [];
   static cycle() {
+    ctx?.resetTransform();
     ctx?.clearRect(0, 0, canvas.width, canvas.height);
+    Camera.update(Game.players[0].position);
     for (let i = 0; i < Game.players.length; i++) {
       const p = Game.players[i];
       p.draw();
@@ -253,10 +255,17 @@ class Obstacle {
     ctx?.fill();
     ctx?.stroke();
     ctx?.closePath;
-    // const img = <HTMLImageElement>document.getElementById("trees");
     let r = this.radius * 1.4;
-    ctx?.drawImage(this.img, -r, -r, r * 2, r * 2); // -img.width/2, -img.height/2);
-    // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+    ctx?.drawImage(this.img, -r, -r, r * 2, r * 2);
     ctx?.restore();
+  }
+}
+
+class Camera {
+  static focus: Vector = new Vector(0, 0);
+
+  static update(v: Vector) {
+    Camera.focus = v;
+    ctx?.translate(-v.x + canvas.width / 2, -v.y + canvas.height / 2);
   }
 }

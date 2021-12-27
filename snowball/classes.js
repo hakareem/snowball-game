@@ -120,7 +120,9 @@ class Player {
 }
 class Game {
     static cycle() {
+        ctx === null || ctx === void 0 ? void 0 : ctx.resetTransform();
         ctx === null || ctx === void 0 ? void 0 : ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Camera.update(Game.players[0].position);
         for (let i = 0; i < Game.players.length; i++) {
             const p = Game.players[i];
             p.draw();
@@ -216,11 +218,16 @@ class Obstacle {
         ctx === null || ctx === void 0 ? void 0 : ctx.fill();
         ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
         ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
-        // const img = <HTMLImageElement>document.getElementById("trees");
         let r = this.radius * 1.4;
-        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(this.img, -r, -r, r * 2, r * 2); // -img.width/2, -img.height/2);
-        // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(this.img, -r, -r, r * 2, r * 2);
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
 }
+class Camera {
+    static update(v) {
+        Camera.focus = v;
+        ctx === null || ctx === void 0 ? void 0 : ctx.translate(-v.x + canvas.width / 2, -v.y + canvas.height / 2);
+    }
+}
+Camera.focus = new Vector(0, 0);
 //# sourceMappingURL=classes.js.map
