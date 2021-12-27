@@ -38,9 +38,12 @@ let colors = [
     "Ivory",
 ];
 let username = prompt("Enter your username");
-let numPlayers = 1;
+let numPlayers = 4;
+let playerRadius = 60;
 for (let i = 0; i < numPlayers; i++) {
-    Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100));
+    let img = document.createElement("img");
+    img.src = "player images/clipart3304.png";
+    Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100, img, playerRadius));
 }
 let images = [];
 images.push("obstacle images/tree_12.png");

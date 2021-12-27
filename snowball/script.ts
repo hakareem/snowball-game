@@ -47,21 +47,15 @@ let colors: string[] = [
 
 let username: string = prompt("Enter your username")!;
 
-let numPlayers = 1;
+let numPlayers = 4;
+let playerRadius = 60;
 
 for (let i = 0; i < numPlayers; i++) {
-  Game.players.push(
-    new Player(
-      username,
-      new Vector(
-        Math.floor(Math.random() * 400),
-        Math.floor(Math.random() * 400)
-      ),
-      colors[i],
-      50,
-      100
-    )
-  );
+
+    let img = document.createElement("img")
+    img.src = "player images/clipart3304.png"
+
+    Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100, img, playerRadius));
 }
 
 let images = [];
@@ -74,13 +68,10 @@ images.push("obstacle images/tree_52.png");
 
 let numObstacles = 10;
 for (let i = 0; i < numObstacles; i++) {
-  let p = new Vector(
-    Math.floor(Math.random() * 2500),
-    Math.floor(Math.random() * 1000)
-  );
-  let img = document.createElement("img");
-  let indexImage = Math.floor(Math.random() * images.length);
-  img.src = images[indexImage];
+  let p = new Vector(Math.floor(Math.random() * 2500), Math.floor(Math.random() * 1000));
+  let img = document.createElement("img")
+  let indexImage = Math.floor(Math.random()*images.length)
+  img.src = images[indexImage]
 
   let o = new Obstacle(p, 50 + Math.random() * 50, "lightblue", img);
   Game.obstacles.push(o);
