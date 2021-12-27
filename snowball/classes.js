@@ -108,13 +108,18 @@ class Player {
         for (let i = 0; i < Game.obstacles.length; i++) {
             const obstacles = Game.obstacles[i];
             let dbt = distanceBetween(this.position, obstacles.position);
-            let overlap = 60 - dbt;
-            console.log(dbt, obstacles);
-            if (overlap > 0) {
-                let vectorBetween = this.position.subtract(obstacles.position);
-                let directionBetween = vectorBetween.normalise();
-                obstacles.position = obstacles.position.subtract(directionBetween.multiply(overlap + 1));
-            }
+            // let overlap = 110
+            console.log(dbt);
+            console.log(obstacles.position);
+            console.log(this.position);
+            // if (dbt > 45 && dbt > 70) {
+            //   console.log(dbt)
+            //   let vectorBetween = this.position.subtract(obstacles.position);
+            //   let directionBetween = vectorBetween.normalise();
+            //   this.position = this.position.subtract(
+            //   directionBetween.multiply(overlap + 1)
+            //   );
+            // }
         }
     }
 }
@@ -211,12 +216,12 @@ class Obstacle {
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
         const img = document.getElementById("trees");
         ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img, -110, -110);
-        // ctx?.beginPath();
-        // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
-        // ctx!.fillStyle = this.color;
-        // ctx?.fill();
-        // ctx?.stroke();
-        // ctx?.closePath;
+        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
+        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
+        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
+        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
 }
