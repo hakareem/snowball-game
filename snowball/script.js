@@ -30,10 +30,10 @@ let numPlayers = 4;
 for (let i = 0; i < numPlayers; i++) {
     Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100));
 }
-let numObstacles = 10;
+let numObstacles = 2;
 for (let i = 0; i < numObstacles; i++) {
     let p = new Vector(Math.floor(Math.random() * 2500), Math.floor(Math.random() * 1000));
-    let o = new Obstacle(p, 50 + Math.random() * 50, "lightblue");
+    let o = new Obstacle(p, 50 + Math.random() * 10, "lightblue");
     Game.obstacles.push(o);
 }
 requestAnimationFrame(Game.cycle);

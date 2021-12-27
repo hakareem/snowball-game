@@ -229,14 +229,15 @@ class Obstacle {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
     const img = <HTMLImageElement>document.getElementById("trees");
-    ctx?.drawImage(img, 10, 10);
+    ctx?.drawImage(img, -110, -110);
 
     ctx?.beginPath();
-    // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
-    // ctx!.fillStyle = this.color;
-    // ctx?.fill();
-    // ctx?.stroke();
-    // ctx?.closePath;
+    ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+    ctx!.fillStyle = this.color;
+    ctx?.fill();
+    ctx?.stroke();
+    ctx?.closePath;
+
     ctx?.restore();
   }
 }
