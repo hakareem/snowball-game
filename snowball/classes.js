@@ -69,6 +69,7 @@ class Player {
     }
     runToPoint(target) {
         let p = Game.players[0];
+        let p1 = Game.players[1];
         p.destination.x = target.x;
         p.destination.y = target.y;
         let adjacent = p.destination.x - p.position.x;

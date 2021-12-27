@@ -80,12 +80,11 @@ class Player {
   }
   runToPoint(target: Vector) {
     let p = Game.players[0];
+    let p1 = Game.players[1]
     p.destination.x = target.x;
     p.destination.y = target.y;
-
     let adjacent = p.destination.x - p.position.x;
     let opposite = p.destination.y - p.position.y;
-
     p.angle = -Math.atan2(-opposite, adjacent) - Math.PI / 2;
     let hypotenuse = hypo(adjacent, opposite);
     p.velocity.x = (adjacent / hypotenuse) * 5;
@@ -129,7 +128,6 @@ class Game {
   static obstacles: Obstacle[] = [];
   static cycle() {
     ctx?.clearRect(0, 0, canvas.width, canvas.height);
-
     for (let i = 0; i < Game.players.length; i++) {
       const p = Game.players[i];
       p.draw();
