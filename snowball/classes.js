@@ -14,6 +14,7 @@ class Player {
         this.hpMax = 0;
         this.username = username;
         this.position = position;
+        this.destination = this.position;
         this.color = color;
         this.hp = hp;
         this.hpMax = hpMax;
@@ -71,11 +72,13 @@ class Player {
         ctx.lineWidth = 2;
         ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
     }
-    runToPoint(target) {
+    runToPoint(destination) {
         let p = Game.players[0];
-        let p1 = Game.players[1];
-        p.destination.x = target.x;
-        p.destination.y = target.y;
+        p.destination = destination;
+        // Do nothing if we are already at the point, otherwise we would get an division by 0 error
+        if (distanceBetween(p.position, p.destination) < 0.01) {
+            return;
+        }
         let adjacent = p.destination.x - p.position.x;
         let opposite = p.destination.y - p.position.y;
         p.angle = -Math.atan2(-opposite, adjacent) - Math.PI / 2;
@@ -97,6 +100,9 @@ class Player {
             const otherPlayer = Game.players[i];
             if (otherPlayer != this) {
                 let dbt = distanceBetween(this.position, otherPlayer.position);
+                if (dbt < 0.01) {
+                    otherPlayer.position.x += 2;
+                }
                 let overlap = 60 - dbt;
                 if (overlap > 0) {
                     isOverlap = true;
@@ -108,17 +114,22 @@ class Player {
         }
         return isOverlap;
     }
-    movePlayersAroundObstacles() {
+    movePlayerAroundObstacles() {
         for (let i = 0; i < Game.obstacles.length; i++) {
-            const obstacles = Game.obstacles[i];
-            let dbt = distanceBetween(this.position, obstacles.position);
-            let overlap = 60 - dbt;
-            // console.log(dbt, obstacles);
+            const obstacle = Game.obstacles[i];
+            let dbt = distanceBetween(this.position, obstacle.position);
+            let overlap = obstacle.radius * 2 - dbt;
+            // let isObstacle = false
             if (overlap > 0) {
-                let vectorBetween = this.position.subtract(obstacles.position);
+                // isObstacle = true
+                let vectorBetween = this.position.subtract(obstacle.position);
                 let directionBetween = vectorBetween.normalise();
-                obstacles.position = obstacles.position.subtract(directionBetween.multiply(overlap + 1));
+                this.position = this.position.add(directionBetween.multiply(overlap));
+                // if (isObstacle) {
+                this.runToPoint(this.destination);
+                // }
             }
+            console.log(this.position);
         }
     }
 }
@@ -134,7 +145,7 @@ class Game {
             p.drawAndMoveSnowballs();
             p.drawHealth();
             p.drawUsername();
-            p.movePlayersAroundObstacles();
+            p.movePlayerAroundObstacles();
             while (p.pushOtherPlayersAway()) { }
             if (distanceBetween(p.position, p.destination) < 50 &&
                 mouseBtnDown == true) {
@@ -143,7 +154,6 @@ class Game {
                 p.velocity.y = 0;
             }
             else if (distanceBetween(p.position, p.destination) < 20) {
-                // p.drawAndMoveSnowballs();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
             }
