@@ -80,7 +80,7 @@ class Player {
   }
   runToPoint(target: Vector) {
     let p = Game.players[0];
-    let p1 = Game.players[1]
+    let p1 = Game.players[1];
     p.destination.x = target.x;
     p.destination.y = target.y;
     let adjacent = p.destination.x - p.position.x;
@@ -120,8 +120,9 @@ class Player {
   }
   movePlayersAroundObstacles() {
     for (let i = 0; i < Game.obstacles.length; i++) {
-      const obstacles = Game.obstacles[i]
+      const obstacles = Game.obstacles[i];
       let dbt = distanceBetween(this.position, obstacles.position);
+<<<<<<< HEAD
       // let overlap = 110
       console.log(dbt)
       console.log(obstacles.position)
@@ -134,6 +135,17 @@ class Player {
       //   directionBetween.multiply(overlap + 1)
       //   );
       // }
+=======
+      let overlap = 60 - dbt;
+      // console.log(dbt, obstacles);
+      if (overlap > 0) {
+        let vectorBetween = this.position.subtract(obstacles.position);
+        let directionBetween = vectorBetween.normalise();
+        obstacles.position = obstacles.position.subtract(
+          directionBetween.multiply(overlap + 1)
+        );
+      }
+>>>>>>> d2f29f02916edcbfc6fb31cf522649195db0b40c
     }
   }
 }
@@ -149,8 +161,8 @@ class Game {
       p.drawAndMoveSnowballs();
       p.drawHealth();
       p.drawUsername();
-      p.movePlayersAroundObstacles()
-      while (p.pushOtherPlayersAway()) { }
+      p.movePlayersAroundObstacles();
+      while (p.pushOtherPlayersAway()) {}
       if (
         distanceBetween(p.position, p.destination) < 50 &&
         mouseBtnDown == true
@@ -231,18 +243,19 @@ class Obstacle {
   position: Vector;
   radius: number;
   color: string = "";
+  img: HTMLImageElement;
 
-  constructor(position: Vector, radius: number, color: string) {
+  constructor(position: Vector, radius: number, color: string, img: HTMLImageElement) {
     this.position = position;
     this.radius = radius;
     this.color = color;
+    this.img = img;
   }
 
   draw() {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
-    const img = <HTMLImageElement>document.getElementById("trees");
-    ctx?.drawImage(img, -110, -110);
+    
 
     ctx?.beginPath();
     ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
@@ -250,6 +263,13 @@ class Obstacle {
     ctx?.fill();
     ctx?.stroke();
     ctx?.closePath;
+<<<<<<< HEAD
+=======
+    // const img = <HTMLImageElement>document.getElementById("trees");
+    let r = this.radius*1.4
+    ctx?.drawImage(this.img,-r, -r,r*2, r*2) // -img.width/2, -img.height/2);
+    // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+>>>>>>> d2f29f02916edcbfc6fb31cf522649195db0b40c
     ctx?.restore();
   }
 }

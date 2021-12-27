@@ -171,3 +171,6 @@ body {
     background-position: 300px 650px;
   }
 }
+#myCanvas {
+  border: 1px solid black;
+}

@@ -108,7 +108,6 @@ class Player {
         for (let i = 0; i < Game.obstacles.length; i++) {
             const obstacles = Game.obstacles[i];
             let dbt = distanceBetween(this.position, obstacles.position);
-            // let overlap = 110
             console.log(dbt);
             console.log(obstacles.position);
             console.log(this.position);
@@ -205,17 +204,16 @@ class Vector {
     }
 }
 class Obstacle {
-    constructor(position, radius, color) {
+    constructor(position, radius, color, img) {
         this.color = "";
         this.position = position;
         this.radius = radius;
         this.color = color;
+        this.img = img;
     }
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        const img = document.getElementById("trees");
-        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img, -110, -110);
         ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
         ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
