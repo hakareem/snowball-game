@@ -41,9 +41,11 @@ class Player {
     }
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
-        ctx === null || ctx === void 0 ? void 0 : ctx.resetTransform();
+        // ctx?.resetTransform();
+        // ctx?.translate(-this.position.x, -this.position.y);
+        // ctx?.rotate(this.angle);
+        // ctx?.translate(this.position.x, this.position.y);
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        ctx === null || ctx === void 0 ? void 0 : ctx.rotate(this.angle);
         ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
         ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;

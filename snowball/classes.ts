@@ -54,10 +54,11 @@ class Player {
 
   draw() {
     ctx?.save();
-    ctx?.resetTransform();
-    
+    // ctx?.resetTransform();
+    // ctx?.translate(-this.position.x, -this.position.y);
+    // ctx?.rotate(this.angle);
+    // ctx?.translate(this.position.x, this.position.y);
     ctx?.translate(this.position.x, this.position.y);
-    ctx?.rotate(this.angle);
 
     ctx?.beginPath();
     ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
