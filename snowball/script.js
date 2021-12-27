@@ -1,15 +1,25 @@
 "use strict";
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+// Audio //
+var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
+function startBackgroundMusic() {
+    backgroundMusic.play();
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.1;
 }
-resize();
-// const backgroundMusic = new Audio('music/music_zapsplat_christmas_funk.mp3')
-// backgroundMusic.volume = 0.2;
-// backgroundMusic.play();
-// backgroundMusic.loop = true;
+const hitSound = new Audio("music/julien_matthey_impact_snowball_on_cement_002.mp3");
+function startHitSound() {
+    hitSound.play();
+}
+const throwSound = new Audio("music/zapsplat_sport_rugby_ball_throw_pass_let_go_001_67491.mp3");
+function startThrowSound() {
+    throwSound.play();
+}
+const hurtSound = new Audio("music/zapsplat_human_male_gasp_001_19848.mp3");
+function startHurtSound() {
+    hurtSound.play();
+}
 let colors = [
     "Chartreuse",
     "Crimson",
