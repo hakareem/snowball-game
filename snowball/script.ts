@@ -66,7 +66,7 @@ images.push("obstacle images/tree_28.png");
 images.push("obstacle images/tree_43.png");
 images.push("obstacle images/tree_52.png");
 
-let numObstacles = 800;
+let numObstacles = 100;
 for (let i = 0; i < numObstacles; i++) {
   let p = new Vector(Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000));
   let img = document.createElement("img")
