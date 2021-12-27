@@ -109,7 +109,7 @@ class Player {
             const obstacles = Game.obstacles[i];
             let dbt = distanceBetween(this.position, obstacles.position);
             let overlap = 60 - dbt;
-            console.log(dbt, obstacles);
+            // console.log(dbt, obstacles);
             if (overlap > 0) {
                 let vectorBetween = this.position.subtract(obstacles.position);
                 let directionBetween = vectorBetween.normalise();
@@ -200,23 +200,26 @@ class Vector {
     }
 }
 class Obstacle {
-    constructor(position, radius, color) {
+    constructor(position, radius, color, img) {
         this.color = "";
         this.position = position;
         this.radius = radius;
         this.color = color;
+        this.img = img;
     }
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        const img = document.getElementById("trees");
-        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img, -110, -110);
         ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
         ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx === null || ctx === void 0 ? void 0 : ctx.fill();
         ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
         ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        // const img = <HTMLImageElement>document.getElementById("trees");
+        let r = this.radius * 1.4;
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(this.img, -r, -r, r * 2, r * 2); // -img.width/2, -img.height/2);
+        // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
 }

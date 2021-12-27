@@ -123,7 +123,7 @@ class Player {
       const obstacles = Game.obstacles[i];
       let dbt = distanceBetween(this.position, obstacles.position);
       let overlap = 60 - dbt;
-      console.log(dbt, obstacles);
+      // console.log(dbt, obstacles);
       if (overlap > 0) {
         let vectorBetween = this.position.subtract(obstacles.position);
         let directionBetween = vectorBetween.normalise();
@@ -229,18 +229,23 @@ class Obstacle {
   position: Vector;
   radius: number;
   color: string = "";
+  img: HTMLImageElement;
 
-  constructor(position: Vector, radius: number, color: string) {
+  constructor(
+    position: Vector,
+    radius: number,
+    color: string,
+    img: HTMLImageElement
+  ) {
     this.position = position;
     this.radius = radius;
     this.color = color;
+    this.img = img;
   }
 
   draw() {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
-    const img = <HTMLImageElement>document.getElementById("trees");
-    ctx?.drawImage(img, -110, -110);
 
     ctx?.beginPath();
     ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
@@ -248,6 +253,10 @@ class Obstacle {
     ctx?.fill();
     ctx?.stroke();
     ctx?.closePath;
+    // const img = <HTMLImageElement>document.getElementById("trees");
+    let r = this.radius * 1.4;
+    ctx?.drawImage(this.img, -r, -r, r * 2, r * 2); // -img.width/2, -img.height/2);
+    // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
     ctx?.restore();
   }
 }
