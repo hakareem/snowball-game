@@ -245,7 +245,12 @@ class Obstacle {
   color: string = "";
   img: HTMLImageElement;
 
-  constructor(position: Vector, radius: number, color: string, img: HTMLImageElement) {
+  constructor(
+    position: Vector,
+    radius: number,
+    color: string,
+    img: HTMLImageElement
+  ) {
     this.position = position;
     this.radius = radius;
     this.color = color;
@@ -255,7 +260,6 @@ class Obstacle {
   draw() {
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
-    
 
     ctx?.beginPath();
     ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
@@ -266,8 +270,8 @@ class Obstacle {
 <<<<<<< HEAD
 =======
     // const img = <HTMLImageElement>document.getElementById("trees");
-    let r = this.radius*1.4
-    ctx?.drawImage(this.img,-r, -r,r*2, r*2) // -img.width/2, -img.height/2);
+    let r = this.radius * 1.4;
+    ctx?.drawImage(this.img, -r, -r, r * 2, r * 2); // -img.width/2, -img.height/2);
     // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
 >>>>>>> d2f29f02916edcbfc6fb31cf522649195db0b40c
     ctx?.restore();
