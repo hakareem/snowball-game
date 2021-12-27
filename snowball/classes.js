@@ -1,6 +1,6 @@
 "use strict";
 class Player {
-    constructor(username, position, color, hp, hpMax) {
+    constructor(username, position, color, hp, hpMax, img, radius) {
         this.username = "";
         this.position = new Vector(50, 50);
         this.velocity = new Vector(0, 0); // the direction the player is currently moving in
@@ -17,6 +17,8 @@ class Player {
         this.color = color;
         this.hp = hp;
         this.hpMax = hpMax;
+        this.img = img;
+        this.radius = radius;
     }
     drawHealth() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
@@ -39,15 +41,17 @@ class Player {
     }
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
+        ctx === null || ctx === void 0 ? void 0 : ctx.resetTransform();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        // const img = <HTMLImageElement>document.getElementById("player");
-        // ctx?.drawImage(img, 10, 10);
+        ctx === null || ctx === void 0 ? void 0 : ctx.rotate(this.angle);
         ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
-        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, 30, 0, Math.PI * 2);
+        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx === null || ctx === void 0 ? void 0 : ctx.fill();
         ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
         ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        let r = this.radius * 1.4;
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(this.img, -r, -r, r * 2, r * 2);
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
     move() {

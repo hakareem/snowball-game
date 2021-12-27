@@ -10,19 +10,25 @@ class Player {
   target: Vector = new Vector(0, 0); // populate that during mouse movement
   hp: number = 0;
   hpMax: number = 0;
+  img: HTMLImageElement;
+  radius: number;
 
   constructor(
     username: string,
     position: Vector,
     color: string,
     hp: number,
-    hpMax: number
+    hpMax: number,
+    img: HTMLImageElement,
+    radius: number
   ) {
     this.username = username;
     this.position = position;
     this.color = color;
     this.hp = hp;
     this.hpMax = hpMax;
+    this.img = img;
+    this.radius = radius
   }
   drawHealth() {
     ctx?.save();
@@ -48,16 +54,19 @@ class Player {
 
   draw() {
     ctx?.save();
+    ctx?.resetTransform();
+    
     ctx?.translate(this.position.x, this.position.y);
-    // const img = <HTMLImageElement>document.getElementById("player");
-    // ctx?.drawImage(img, 10, 10);
+    ctx?.rotate(this.angle);
 
     ctx?.beginPath();
-    ctx?.arc(0, 0, 30, 0, Math.PI * 2);
+    ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
     ctx!.fillStyle = this.color;
     ctx?.fill();
     ctx?.stroke();
     ctx?.closePath;
+    let r = this.radius*1.4
+    ctx?.drawImage(this.img,-r, -r,r*2, r*2)
     ctx?.restore();
   }
   move() {
@@ -225,6 +234,8 @@ class Vector {
     return hypo(this.x, this.y);
   }
 }
+
+
 class Obstacle {
   position: Vector;
   radius: number;
