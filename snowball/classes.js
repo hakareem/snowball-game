@@ -47,12 +47,12 @@ class Player {
         // ctx?.rotate(this.angle);
         // ctx?.translate(this.position.x, this.position.y);
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
-        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
-        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
-        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        // ctx?.beginPath();
+        // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+        // ctx!.fillStyle = this.color;
+        // ctx?.fill();
+        // ctx?.stroke();
+        // ctx?.closePath;
         let r = this.radius * 1.4;
         ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(this.img, -r, -r, r * 2, r * 2);
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
@@ -131,7 +131,6 @@ class Player {
                 this.runToPoint(this.destination);
                 // }
             }
-            console.log(this.position);
         }
     }
 }
@@ -228,12 +227,12 @@ class Obstacle {
     draw() {
         ctx === null || ctx === void 0 ? void 0 : ctx.save();
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
-        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
-        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
-        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
-        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        // ctx?.beginPath();
+        // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+        // ctx!.fillStyle = this.color;
+        // ctx?.fill();
+        // ctx?.stroke();
+        // ctx?.closePath;
         let r = this.radius * 1.4;
         ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(this.img, -r, -r, r * 2, r * 2);
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
