@@ -89,23 +89,33 @@ class Player {
     }
     pushOtherPlayersAway() {
         let isOverlap = false;
-        // const p = Game.players[0];
         for (let i = 0; i < Game.players.length; i++) {
             const otherPlayer = Game.players[i];
             if (otherPlayer != this) {
-                let op = otherPlayer.position;
                 let dbt = distanceBetween(this.position, otherPlayer.position);
                 let overlap = 60 - dbt;
                 if (overlap > 0) {
                     isOverlap = true;
                     let vectorBetween = this.position.subtract(otherPlayer.position);
-                    console.log(overlap);
                     let directionBetween = vectorBetween.normalise();
                     otherPlayer.position = otherPlayer.position.subtract(directionBetween.multiply(overlap + 1));
                 }
             }
         }
         return isOverlap;
+    }
+    movePlayersAroundObstacles() {
+        for (let i = 0; i < Game.obstacles.length; i++) {
+            const obstacles = Game.obstacles[i];
+            let dbt = distanceBetween(this.position, obstacles.position);
+            let overlap = 60 - dbt;
+            console.log(dbt, obstacles);
+            if (overlap > 0) {
+                let vectorBetween = this.position.subtract(obstacles.position);
+                let directionBetween = vectorBetween.normalise();
+                obstacles.position = obstacles.position.subtract(directionBetween.multiply(overlap + 1));
+            }
+        }
     }
 }
 class Game {
@@ -118,6 +128,7 @@ class Game {
             p.drawAndMoveSnowballs();
             p.drawHealth();
             p.drawUsername();
+            p.movePlayersAroundObstacles();
             while (p.pushOtherPlayersAway()) { }
             if (distanceBetween(p.position, p.destination) < 50 &&
                 mouseBtnDown == true) {
@@ -200,12 +211,12 @@ class Obstacle {
         ctx === null || ctx === void 0 ? void 0 : ctx.translate(this.position.x, this.position.y);
         const img = document.getElementById("trees");
         ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img, -110, -110);
-        ctx === null || ctx === void 0 ? void 0 : ctx.beginPath();
-        ctx === null || ctx === void 0 ? void 0 : ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx === null || ctx === void 0 ? void 0 : ctx.fill();
-        ctx === null || ctx === void 0 ? void 0 : ctx.stroke();
-        ctx === null || ctx === void 0 ? void 0 : ctx.closePath;
+        // ctx?.beginPath();
+        // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+        // ctx!.fillStyle = this.color;
+        // ctx?.fill();
+        // ctx?.stroke();
+        // ctx?.closePath;
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
 }

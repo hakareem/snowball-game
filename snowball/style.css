@@ -171,8 +171,3 @@ body {
     background-position: 300px 650px;
   }
 }
-
-canvas #viewport {
-  border: 1px solid white;
-  width: 100px;
-}
