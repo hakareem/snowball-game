@@ -134,7 +134,6 @@ class Player {
     }
   }
 }
-
 class Game {
   static players: Player[] = [];
   static obstacles: Obstacle[] = [];

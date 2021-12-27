@@ -38,7 +38,7 @@ let colors = [
     "Ivory",
 ];
 let username = prompt("Enter your username");
-let numPlayers = 4;
+let numPlayers = 1;
 for (let i = 0; i < numPlayers; i++) {
     Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100));
 }

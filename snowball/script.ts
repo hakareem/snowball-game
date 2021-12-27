@@ -47,7 +47,7 @@ let colors: string[] = [
 
 let username: string = prompt("Enter your username")!;
 
-let numPlayers = 4;
+let numPlayers = 1;
 
 for (let i = 0; i < numPlayers; i++) {
   Game.players.push(
