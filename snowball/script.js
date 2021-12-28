@@ -44,6 +44,10 @@ let colors = [
 let username = prompt("Enter your username");
 let numPlayers = 4;
 let playerRadius = 30;
+const pCanvas = document.createElement("canvas");
+pCanvas.width = playerRadius * 2;
+pCanvas.height = playerRadius * 2;
+const pctx = pCanvas.getContext("2d");
 for (let i = 0; i < numPlayers; i++) {
     let img = document.createElement("img");
     img.src = "player images/clipart3304.png";
@@ -70,7 +74,7 @@ function hypo(adjacent, opposite) {
     return Math.sqrt(Math.pow(adjacent, 2) + Math.pow(opposite, 2));
 }
 function distanceBetween(a, b) {
-    return hypo(b.x - a.x, b.y - a.y);
+    return hypo(Math.abs(b.x - a.x), Math.abs(b.y - a.y));
 }
 canvas.addEventListener("mousedown", mouseDown);
 canvas.addEventListener("mouseup", mouseUp);
@@ -99,5 +103,21 @@ function mouseUp(_e) {
 function mouseMovement(e) {
     let p = Game.players[0];
     p.target = new Vector(e.clientX + Camera.focus.x - canvas.width / 2, e.clientY + Camera.focus.y - canvas.height / 2);
+}
+function collisionDetection() {
+    const p = Game.players[0];
+    let lastSnowball = p.snowballs[p.snowballs.length - 1];
+    let j = 1;
+    let hit = false;
+    while (j < numPlayers && hit == false) {
+        const p1 = Game.players[j];
+        // < 38 because this is the radius of the player (30) + radius of the snowball (8)
+        if (distanceBetween(p1.position, lastSnowball.position) < 38) {
+            // alert (`Player ${j} : ${p1.username} has been hit`)
+            p.snowballs.pop();
+            hit = true;
+        }
+        j++;
+    }
 }
 //# sourceMappingURL=script.js.map
