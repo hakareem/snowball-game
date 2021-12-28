@@ -13,23 +13,15 @@ class Player {
   img: HTMLImageElement;
   radius: number;
 
-  constructor(
-    username: string,
-    position: Vector,
-    color: string,
-    hp: number,
-    hpMax: number,
-    img: HTMLImageElement,
-    radius: number
-  ) {
+  constructor(username:string,position:Vector,color:string,hp:number,hpMax:number,img:HTMLImageElement,radius:number) {
     this.username = username;
     this.position = position;
-    this.destination = this.position
+    this.destination = this.position;
     this.color = color;
     this.hp = hp;
     this.hpMax = hpMax;
     this.img = img;
-    this.radius = radius
+    this.radius = radius;
   }
   drawHealth() {
     ctx?.save();
@@ -132,9 +124,7 @@ class Player {
           isOverlap = true;
           let vectorBetween = this.position.subtract(otherPlayer.position);
           let directionBetween = vectorBetween.normalise();
-          otherPlayer.position = otherPlayer.position.subtract(
-            directionBetween.multiply(overlap + 1)
-          );
+          otherPlayer.position = otherPlayer.position.subtract(directionBetween.multiply(overlap + 1));
         }
       }
     }
@@ -169,7 +159,6 @@ class Game {
     Camera.update(Game.players[0].position);
     for (let i = 0; i < Game.players.length; i++) {
       const p = Game.players[i];
-
       p.draw();
       p.move();
       p.drawAndMoveSnowballs();
@@ -262,12 +251,7 @@ class Obstacle {
   color: string = "";
   img: HTMLImageElement;
 
-  constructor(
-    position: Vector,
-    radius: number,
-    color: string,
-    img: HTMLImageElement
-  ) {
+  constructor(position:Vector,radius:number,color:string,img: HTMLImageElement) {
     this.position = position;
     this.radius = radius;
     this.color = color;
