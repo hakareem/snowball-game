@@ -7,21 +7,21 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // Audio //
-var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
+let backgroundMusic = new Audio("audio/music/backgroundMusic.mp3");
 function startBackgroundMusic() {
   backgroundMusic.play();
   backgroundMusic.loop = true;
   backgroundMusic.volume = 0.1;
 }
-const hitSound = new Audio("music/julien_matthey_impact_snowball_on_cement_002.mp3");
-function startHitSound() {
-  hitSound.play();
-}
-const throwSound = new Audio("music/zapsplat_sport_rugby_ball_throw_pass_let_go_001_67491.mp3");
+let throwSound = new Audio("audio/sounds/throwSound2.mp3");
 function startThrowSound() {
   throwSound.play();
 }
-const hurtSound = new Audio("music/zapsplat_human_male_gasp_001_19848.mp3");
+let hitSound = new Audio("audio/sounds/hitSound.mp3");
+function startHitSound() {
+  hitSound.play();
+}
+let hurtSound = new Audio("audio/sounds/playerHurtSound.mp3");
 function startHurtSound() {
   hurtSound.play();
 }
