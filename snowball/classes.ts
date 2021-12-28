@@ -14,8 +14,9 @@ class Player {
     this.position = position;
     this.color = color;
   }
+  
 
-  draw() {
+  draw() { // this is drawing the player
     ctx?.save();
     ctx?.translate(this.position.x, this.position.y);
     ctx?.beginPath();
@@ -66,6 +67,7 @@ class Player {
 
     if (distanceBetween(mouseCoord, p.position) <= 20) {
       p.snowballs.push(new Snowball(p.position, p.direction));
+
       // p.direction only becomes a reference to p.velocity this is why p.velocity sets p.dircetion's value to 0 after running
       // We creating a shiny new vector for p.direction so it creates a new vector with  the values of p.velocity
     }
@@ -74,6 +76,7 @@ class Player {
 
 class Game {
   static players: Player[] = [];
+  static players1: Player[] = [];
 
   static cycle() {
 
@@ -81,9 +84,11 @@ class Game {
 
     for (let i = 0; i < Game.players.length; i++) {
       const p = Game.players[i];
+      const p1 = Game.players1[i];
       p.draw();
       p.move();
       p.drawAndMoveSnowballs();
+      
 
 
       if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
@@ -104,6 +109,7 @@ class Game {
     }
 
     requestAnimationFrame(Game.cycle);
+    collisionDetection();
   }
 }
 

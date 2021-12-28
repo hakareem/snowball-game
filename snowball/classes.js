@@ -70,6 +70,7 @@ class Game {
         ctx === null || ctx === void 0 ? void 0 : ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < Game.players.length; i++) {
             const p = Game.players[i];
+            const p1 = Game.players1[i];
             p.draw();
             p.move();
             p.drawAndMoveSnowballs();
@@ -89,9 +90,11 @@ class Game {
             }
         }
         requestAnimationFrame(Game.cycle);
+        collisionDetection();
     }
 }
 Game.players = [];
+Game.players1 = [];
 class Snowball {
     constructor(position, velocity) {
         this.color = "";

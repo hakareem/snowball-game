@@ -8,7 +8,14 @@ const ctx = canvas.getContext("2d");
 // backgroundMusic.play();
 // backgroundMusic.loop = true;
 let colors = [
-    "AntiqueWhite",
+    "HotPink",
+    "Green",
+    "Red",
+    "Blue",
+    "Black",
+    "Yellow",
+    "Orange",
+    "Purple",
     "Aqua",
     "Aquamarine",
     "Beige",
@@ -31,7 +38,6 @@ let colors = [
     "DarkCyan",
     "DarkGoldenRod",
     "DarkGray",
-    "DarkGrey",
     "DarkGreen",
     "DarkKhaki",
     "DarkMagenta",
@@ -43,7 +49,6 @@ let colors = [
     "DarkSeaGreen",
     "DarkSlateBlue",
     "DarkSlateGray",
-    "DarkSlateGrey",
     "DarkTurquoise",
     "DarkViolet",
     "DeepPink",
@@ -82,7 +87,6 @@ let colors = [
     "LightSeaGreen",
     "LightSkyBlue",
     "LightSlateGray",
-    "LightSlateGrey",
     "LightSteelBlue",
     "LightYellow",
     "Lime",
@@ -104,10 +108,12 @@ let colors = [
     "MistyRose",
     "Moccasin",
 ];
-let numPlayers = 1;
+let numPlayers = 8;
 for (let i = 0; i < numPlayers; i++) {
     Game.players.push(new Player("Harith", new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i]));
+    // Game.players1.push(new Player("Zack",new Vector(Math.floor(Math.random() * 400),Math.floor(Math.random() * 400)),colors[i]));
 }
+// console.log(`this is player 1:${Game.players[0].position} and player 2:${Game.players[1].position}`)
 // when we click on a player it shoots a snowball - just for a test not for the full game
 // snowball.addEventListener("click");
 requestAnimationFrame(Game.cycle);
@@ -127,7 +133,7 @@ function hypo(adjacent, opposite) {
     return Math.sqrt(Math.pow(adjacent, 2) + Math.pow(opposite, 2));
 }
 function distanceBetween(a, b) {
-    return hypo(b.x - a.x, b.y - a.y);
+    return hypo(Math.abs(b.x - a.x), Math.abs(b.y - a.y));
 }
 // function getMousePosition(event: MouseEvent) {
 //   let p = Game.players[0];
@@ -171,5 +177,21 @@ function mouseUp(_e) {
 function mouseMovement(e) {
     let p = Game.players[0];
     p.target = new Vector(e.clientX, e.clientY);
+}
+function collisionDetection() {
+    const p = Game.players[0];
+    let lastSnowball = p.snowballs[p.snowballs.length - 1];
+    let j = 1;
+    let hit = false;
+    while (j < numPlayers && hit == false) {
+        const p1 = Game.players[j];
+        // < 38 because this is the radius of the player (30) + radius of the snowball (8)
+        if (distanceBetween(p1.position, lastSnowball.position) < 38) {
+            alert(`Player ${j} : ${p1.username} has been hit`);
+            p.snowballs.pop();
+            hit = true;
+        }
+        j++;
+    }
 }
 //# sourceMappingURL=script.js.map
