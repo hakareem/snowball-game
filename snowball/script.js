@@ -187,7 +187,7 @@ function collisionDetection() {
         const p1 = Game.players[j];
         // < 38 because this is the radius of the player (30) + radius of the snowball (8)
         if (distanceBetween(p1.position, lastSnowball.position) < 38) {
-            alert(`Player ${j} : ${p1.username} has been hit`);
+            // alert (`Player ${j} : ${p1.username} has been hit`)
             p.snowballs.pop();
             hit = true;
         }
