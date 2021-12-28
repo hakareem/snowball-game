@@ -145,6 +145,7 @@ class Game {
         Camera.update(Game.players[0].position);
         for (let i = 0; i < Game.players.length; i++) {
             const p = Game.players[i];
+            const p1 = Game.players1[i];
             p.draw();
             p.move();
             p.drawAndMoveSnowballs();
@@ -164,6 +165,7 @@ class Game {
         }
         Game.drawObstacles();
         requestAnimationFrame(Game.cycle);
+        collisionDetection();
     }
     static drawObstacles() {
         for (let i = 0; i < Game.obstacles.length; i++) {
@@ -172,7 +174,11 @@ class Game {
     }
 }
 Game.players = [];
+<<<<<<< HEAD
 Game.obstacles = [];
+=======
+Game.players1 = [];
+>>>>>>> origin/anna
 class Snowball {
     constructor(position, velocity) {
         this.color = "";

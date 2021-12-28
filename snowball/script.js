@@ -27,10 +27,49 @@ canvas.height = window.innerHeight;
 //   hurtSound.play();
 // }
 let colors = [
+<<<<<<< HEAD
+=======
+    "HotPink",
+    "Green",
+    "Red",
+    "Blue",
+    "Black",
+    "Yellow",
+    "Orange",
+    "Purple",
+    "Aqua",
+    "Aquamarine",
+    "Beige",
+    "Bisque",
+    "Black",
+    "BlanchedAlmond",
+    "Blue",
+    "BlueViolet",
+    "Brown",
+    "BurlyWood",
+    "CadetBlue",
+>>>>>>> origin/anna
     "Chartreuse",
     "Crimson",
     "Cyan",
     "DarkGoldenRod",
+<<<<<<< HEAD
+=======
+    "DarkGray",
+    "DarkGreen",
+    "DarkKhaki",
+    "DarkMagenta",
+    "DarkOliveGreen",
+    "DarkOrange",
+    "DarkOrchid",
+    "DarkRed",
+    "DarkSalmon",
+    "DarkSeaGreen",
+    "DarkSlateBlue",
+    "DarkSlateGray",
+    "DarkTurquoise",
+    "DarkViolet",
+>>>>>>> origin/anna
     "DeepPink",
     "DodgerBlue",
     "Fuchsia",
@@ -40,6 +79,7 @@ let colors = [
     "Aquamarine",
     "BlueViolet",
     "Ivory",
+<<<<<<< HEAD
 ];
 let username = prompt("Enter your username");
 let numPlayers = 4;
@@ -69,12 +109,60 @@ for (let i = 0; i < numObstacles; i++) {
     let o = new Obstacle(p, 50 + Math.random() * 50, "lightblue", img);
     Game.obstacles.push(o);
 }
+=======
+    "Khaki",
+    "Lavender",
+    "LavenderBlush",
+    "LawnGreen",
+    "LemonChiffon",
+    "LightBlue",
+    "LightCoral",
+    "LightCyan",
+    "LightGoldenRodYellow",
+    "LightGray",
+    "LightGrey",
+    "LightGreen",
+    "LightPink",
+    "LightSalmon",
+    "LightSeaGreen",
+    "LightSkyBlue",
+    "LightSlateGray",
+    "LightSteelBlue",
+    "LightYellow",
+    "Lime",
+    "LimeGreen",
+    "Linen",
+    "Magenta",
+    "Maroon",
+    "MediumAquaMarine",
+    "MediumBlue",
+    "MediumOrchid",
+    "MediumPurple",
+    "MediumSeaGreen",
+    "MediumSlateBlue",
+    "MediumSpringGreen",
+    "MediumTurquoise",
+    "MediumVioletRed",
+    "MidnightBlue",
+    "MintCream",
+    "MistyRose",
+    "Moccasin",
+];
+let numPlayers = 8;
+for (let i = 0; i < numPlayers; i++) {
+    Game.players.push(new Player("Harith", new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i]));
+    // Game.players1.push(new Player("Zack",new Vector(Math.floor(Math.random() * 400),Math.floor(Math.random() * 400)),colors[i]));
+}
+// console.log(`this is player 1:${Game.players[0].position} and player 2:${Game.players[1].position}`)
+// when we click on a player it shoots a snowball - just for a test not for the full game
+// snowball.addEventListener("click");
+>>>>>>> origin/anna
 requestAnimationFrame(Game.cycle);
 function hypo(adjacent, opposite) {
     return Math.sqrt(Math.pow(adjacent, 2) + Math.pow(opposite, 2));
 }
 function distanceBetween(a, b) {
-    return hypo(b.x - a.x, b.y - a.y);
+    return hypo(Math.abs(b.x - a.x), Math.abs(b.y - a.y));
 }
 canvas.addEventListener("mousedown", mouseDown);
 canvas.addEventListener("mouseup", mouseUp);
@@ -104,5 +192,21 @@ function mouseUp(_e) {
 function mouseMovement(e) {
     let p = Game.players[0];
     p.target = new Vector(e.clientX + Camera.focus.x - canvas.width / 2, e.clientY + Camera.focus.y - canvas.height / 2);
+}
+function collisionDetection() {
+    const p = Game.players[0];
+    let lastSnowball = p.snowballs[p.snowballs.length - 1];
+    let j = 1;
+    let hit = false;
+    while (j < numPlayers && hit == false) {
+        const p1 = Game.players[j];
+        // < 38 because this is the radius of the player (30) + radius of the snowball (8)
+        if (distanceBetween(p1.position, lastSnowball.position) < 38) {
+            // alert (`Player ${j} : ${p1.username} has been hit`)
+            p.snowballs.pop();
+            hit = true;
+        }
+        j++;
+    }
 }
 //# sourceMappingURL=script.js.map

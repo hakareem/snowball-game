@@ -194,6 +194,7 @@ class Game {
     }
     Game.drawObstacles();
     requestAnimationFrame(Game.cycle);
+    collisionDetection();
   }
   static drawObstacles() {
     for (let i = 0; i < Game.obstacles.length; i++) {
