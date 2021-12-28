@@ -115,7 +115,6 @@ function mouseUp(_e: MouseEvent) {
         p.target.subtract(p.position).normalise().multiply(5)
       )
     );
-    // startThrowSound();
   }
   isAiming = false;
 }

@@ -67,8 +67,8 @@ class Player {
     // ctx?.fill();
     // ctx?.stroke();
     // ctx?.closePath;
-    let r = this.radius*1.4
-    ctx?.drawImage(this.img,-r, -r,r*2, r*2)
+    let r = this.radius * 1.4
+    ctx?.drawImage(this.img, -r, -r, r * 2, r * 2)
     ctx?.restore();
   }
   move() {
@@ -93,7 +93,7 @@ class Player {
     let p = Game.players[0];
     p.destination = destination
     // Do nothing if we are already at the point, otherwise we would get an division by 0 error
-    if (distanceBetween(p.position, p.destination) < 0.01) {return}
+    if (distanceBetween(p.position, p.destination) < 0.01) { return }
     let adjacent = p.destination.x - p.position.x;
     let opposite = p.destination.y - p.position.y;
     p.angle = -Math.atan2(-opposite, adjacent) - Math.PI / 2;
@@ -116,7 +116,7 @@ class Player {
       const otherPlayer = Game.players[i];
       if (otherPlayer != this) {
         let dbt = distanceBetween(this.position, otherPlayer.position);
-        if(dbt < 0.01) {
+        if (dbt < 0.01) {
           otherPlayer.position.x += 2
         }
         let overlap = 60 - dbt;
@@ -136,7 +136,7 @@ class Player {
     for (let i = 0; i < Game.obstacles.length; i++) {
       const obstacle = Game.obstacles[i]
       let dbt = distanceBetween(this.position, obstacle.position);
-      let overlap = obstacle.radius * 2 - dbt ;
+      let overlap = obstacle.radius * 2 - dbt;
       // let isObstacle = false
       if (overlap > 0) {
         // isObstacle = true
@@ -144,10 +144,9 @@ class Player {
         let directionBetween = vectorBetween.normalise();
         this.position = this.position.add(directionBetween.multiply(overlap))
         // if (isObstacle) {
-          this.runToPoint(this.destination)
+        this.runToPoint(this.destination)
         // }
       }
-   
     }
   }
 }
@@ -166,7 +165,7 @@ class Game {
       p.drawHealth();
       p.drawUsername();
       p.movePlayerAroundObstacles();
-      while (p.pushOtherPlayersAway()) {}
+      while (p.pushOtherPlayersAway()) { }
       if (
         distanceBetween(p.position, p.destination) < 50 &&
         mouseBtnDown == true
