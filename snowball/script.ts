@@ -5,6 +5,9 @@ const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+
+
 // Audio //
 // var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
 // function startBackgroundMusic() {
@@ -47,16 +50,24 @@ let colors: string[] = [
 
 let username: string = prompt("Enter your username")!;
 
-let numPlayers = 4;
+let numPlayers = 1;
 let playerRadius = 60;
+
+const pCanvas=document.createElement("canvas")
+pCanvas.width=playerRadius*2
+pCanvas.height=playerRadius*2
+const pctx = pCanvas.getContext("2d");
+
 
 for (let i = 0; i < numPlayers; i++) {
 
     let img = document.createElement("img")
     img.src = "player images/clipart3304.png"
 
-    Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100, img, playerRadius));
-}
+    //Game.players.push(new Player(username, new Vector(Math.floor(Math.random() * 400), Math.floor(Math.random() * 400)), colors[i], 50, 100, img, playerRadius));
+    Game.players.push(new Player(username, new Vector(600,400), colors[i], 50, 100, img, playerRadius));
+  
+  }
 
 let images = [];
 images.push("obstacle images/tree_12.png");
