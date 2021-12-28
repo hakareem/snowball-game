@@ -53,22 +53,34 @@ class Player {
     ctx?.fillText(this.username, this.position.x, this.position.y);
   }
 
+
+
+ 
   draw() {
     ctx?.save();
-    // ctx?.resetTransform();
-    // ctx?.translate(-this.position.x, -this.position.y);
-    // ctx?.rotate(this.angle);
-    // ctx?.translate(this.position.x, this.position.y);
-    ctx?.translate(this.position.x, this.position.y);
+  
+    let r = this.radius  //*1.4
+   
+    //pctx is s second canvas/context we use to pre-rotate the player
+    pctx?.save() 
+    pctx?.clearRect(0,0,r*2,r*2)
 
-    // ctx?.beginPath();
-    // ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
-    // ctx!.fillStyle = this.color;
-    // ctx?.fill();
-    // ctx?.stroke();
+    pctx?.translate(r,r)
+    pctx?.rotate(this.angle)
+    pctx?.translate(-r,-r)    
+    pctx?.drawImage(this.img,r*.2, r*.2,r*1.8, r*1.8)
+    pctx?.restore()
+   
+    ctx!.translate(this.position.x,this.position.y)
+   
+    //  ctx?.beginPath();
+    //  ctx?.arc(0, 0, this.radius, 0, Math.PI * 2);
+    //  ctx!.fillStyle = this.color;
+    //  ctx?.fill();
+    //  ctx?.stroke();
     // ctx?.closePath;
-    let r = this.radius*1.4
-    ctx?.drawImage(this.img,-r, -r,r*2, r*2)
+    ctx?.drawImage(pCanvas,-r, -r,r*2, r*2)
+    
     ctx?.restore();
   }
   move() {
@@ -132,6 +144,7 @@ class Player {
     }
     return isOverlap;
   }
+
   movePlayerAroundObstacles() {
     for (let i = 0; i < Game.obstacles.length; i++) {
       const obstacle = Game.obstacles[i]
@@ -151,6 +164,7 @@ class Player {
     }
   }
 }
+
 class Game {
   static players: Player[] = [];
   static obstacles: Obstacle[] = [];
@@ -160,6 +174,7 @@ class Game {
     Camera.update(Game.players[0].position);
     for (let i = 0; i < Game.players.length; i++) {
       const p = Game.players[i];
+   
       p.draw();
       p.move();
       p.drawAndMoveSnowballs();
@@ -167,14 +182,12 @@ class Game {
       p.drawUsername();
       p.movePlayerAroundObstacles();
       while (p.pushOtherPlayersAway()) {}
-      if (
-        distanceBetween(p.position, p.destination) < 50 &&
-        mouseBtnDown == true
-      ) {
+      if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
         p.drawAimLine();
         p.velocity.x = 0;
         p.velocity.y = 0;
-      } else if (distanceBetween(p.position, p.destination) < 20) {
+      } 
+      else if (distanceBetween(p.position, p.destination) < 20) {
         p.velocity.x = 0;
         p.velocity.y = 0;
       }
