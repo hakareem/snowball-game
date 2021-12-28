@@ -279,7 +279,7 @@ class Obstacle {
 }
 
 class Camera {
-  static focus: Vector = new Vector(0, 0);
+  static focus: Vector = new Vector(0, 0);  
 
   static update(v: Vector) {
     Camera.focus = v;
