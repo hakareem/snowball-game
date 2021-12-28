@@ -8,15 +8,16 @@ var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
 function startBackgroundMusic() {
     backgroundMusic.play();
     backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.1;
+    backgroundMusic.volume = 0.25;
 }
 const hitSound = new Audio("music/julien_matthey_impact_snowball_on_cement_002.mp3");
 function startHitSound() {
     hitSound.play();
 }
-const throwSound = new Audio("music/zapsplat_sport_rugby_ball_throw_pass_let_go_001_67491.mp3");
+const throwSound = new Audio("music/zapsplat_foley_stick_bendy_whoosh_air_fast_001_12681.mp3");
 function startThrowSound() {
     throwSound.play();
+    throwSound.volume = 0.5;
 }
 const hurtSound = new Audio("music/zapsplat_human_male_gasp_001_19848.mp3");
 function startHurtSound() {
