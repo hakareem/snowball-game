@@ -6,31 +6,25 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-
-
 // Audio //
-// var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
-// function startBackgroundMusic() {
-//   backgroundMusic.play();
-//   backgroundMusic.loop = true;
-//   backgroundMusic.volume = 0.1;
-// }
-// const hitSound = new Audio(
-//   "music/julien_matthey_impact_snowball_on_cement_002.mp3"
-// );
-// function startHitSound() {
-//   hitSound.play();
-// }
-// const throwSound = new Audio(
-//   "music/zapsplat_sport_rugby_ball_throw_pass_let_go_001_67491.mp3"
-// );
-// function startThrowSound() {
-//   throwSound.play();
-// }
-// const hurtSound = new Audio("music/zapsplat_human_male_gasp_001_19848.mp3");
-// function startHurtSound() {
-//   hurtSound.play();
-// }
+var backgroundMusic = new Audio("music/music_zapsplat_winter_dance.mp3");
+function startBackgroundMusic() {
+  backgroundMusic.play();
+  backgroundMusic.loop = true;
+  backgroundMusic.volume = 0.1;
+}
+const hitSound = new Audio("music/julien_matthey_impact_snowball_on_cement_002.mp3");
+function startHitSound() {
+  hitSound.play();
+}
+const throwSound = new Audio("music/zapsplat_sport_rugby_ball_throw_pass_let_go_001_67491.mp3");
+function startThrowSound() {
+  throwSound.play();
+}
+const hurtSound = new Audio("music/zapsplat_human_male_gasp_001_19848.mp3");
+function startHurtSound() {
+  hurtSound.play();
+}
 
 let colors: string[] = [
   "Chartreuse",
@@ -105,7 +99,7 @@ let isAiming = false;
 
 function mouseDown(_e: MouseEvent) {
   const p = Game.players[0];
-  // startBackgroundMusic();
+  startBackgroundMusic();
   if (distanceBetween(p.position, p.target) < 40) {
     isAiming = true;
   } else {
@@ -118,14 +112,10 @@ function mouseUp(_e: MouseEvent) {
   const p = Game.players[0];
   mouseBtnDown = false;
   if (isAiming) {
-    p.snowballs.push(
-      new Snowball(
-        p.position,
-        p.target.subtract(p.position).normalise().multiply(5)
-      )
-    );
+    p.snowballs.push(new Snowball(p.position,p.target.subtract(p.position).normalise().multiply(5)));
   }
   isAiming = false;
+  startThrowSound()
 }
 
 function mouseMovement(e: MouseEvent) {
@@ -149,9 +139,7 @@ function collisionDetection() {
     const p1 = Game.players[j];
     // < 38 because this is the radius of the player (30) + radius of the snowball (8)
     if (distanceBetween(p1.position, lastSnowball.position) < 38) {
-      
       // alert (`Player ${j} : ${p1.username} has been hit`)
-      
       p.snowballs.pop()
       hit = true
     }
