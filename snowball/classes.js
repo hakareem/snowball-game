@@ -58,7 +58,8 @@ class Player {
         //  ctx?.fill();
         //  ctx?.stroke();
         // ctx?.closePath;
-        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(pCanvas, -r, -r, r * 2, r * 2);
+        r = this.radius * 1.4;
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(this.img, -r, -r, r * 2, r * 2);
         ctx === null || ctx === void 0 ? void 0 : ctx.restore();
     }
     move() {
@@ -152,7 +153,8 @@ class Game {
             p.drawUsername();
             p.movePlayerAroundObstacles();
             while (p.pushOtherPlayersAway()) { }
-            if (distanceBetween(p.position, p.destination) < 50 && mouseBtnDown == true) {
+            if (distanceBetween(p.position, p.destination) < 50 &&
+                mouseBtnDown == true) {
                 p.drawAimLine();
                 p.velocity.x = 0;
                 p.velocity.y = 0;
